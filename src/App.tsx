@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import GettingStarted from './pages/docs/GettingStarted'
 import VeneerSpec from './pages/docs/VeneerSpec'
@@ -9,7 +9,7 @@ import ComponentDocPage from './pages/components/ComponentDocPage'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/docs/getting-started" element={<GettingStarted />} />
@@ -19,6 +19,6 @@ export default function App() {
         <Route path="/components" element={<ComponentsExplorer />} />
         <Route path="/components/dedicated/:slug" element={<ComponentDocPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
