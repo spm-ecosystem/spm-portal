@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom'
 
 const SPMLogo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-    <div style={{
-      width: 28, height: 28, border: '1.5px solid #fff',
-      borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontFamily: 'var(--font-mono)', fontWeight: 600, fontSize: 11, color: '#fff', letterSpacing: '-0.5px'
-    }}>SPM</div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    <img
+      src="https://raw.githubusercontent.com/spm-ecosystem/.github/main/profile/spm_logo.svg"
+      alt="SPM Logo"
+      style={{ height: 28, width: 'auto' }}
+    />
     <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 14, color: '#fff', letterSpacing: 0 }}>Portal</span>
   </div>
 )
@@ -41,7 +41,7 @@ export default function Navbar() {
       <nav style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
         {navLink('/docs/getting-started', 'Docs')}
         {navLink('/components', 'Components')}
-        <a href="https://github.com/watashi-00/ImportMarkdownContent" target="_blank" rel="noreferrer"
+        <a href="https://github.com/spm-ecosystem" target="_blank" rel="noreferrer"
           style={{
             color: 'var(--text-muted)', textDecoration: 'none', fontSize: 13,
             fontWeight: 500, transition: 'color 0.15s',
