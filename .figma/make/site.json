@@ -1,0 +1,10 @@
+{
+  "description": "Converts markdown content into formatted web pages for easy reading and sharing, ideal for developers and content creators seeking quick previews.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
