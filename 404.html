@@ -1,9 +1,123 @@
 <!doctype html>
-<html lang="pt-BR" style="background-color: #060606; color: #ffffff;">
+<html lang="en" style="background-color: #060606; color: #ffffff;">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Site Package Manager (SPM) Portal</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>SPM Portal - Site Package Manager &amp; Veneer Spec DSL Ecosystem</title>
+    <meta name="title" content="SPM Portal - Site Package Manager &amp; Veneer Spec DSL Ecosystem" />
+    <meta name="description" content="Official portal for Site Package Manager (SPM). Declarative web application modernization engine, Veneer Spec DSL compiler, Shadow DOM component reconstruction, and theme tooling." />
+    <meta name="keywords" content="Site Package Manager, SPM, spm-cli, spm-components, spm-portal, spm-websites, spm-vscode, Veneer Spec, Veneer DSL, .vnr language, Veneer Spec compiler, Veneer Spec syntax, Veneer AST, reconstruct directive, bind operator, child list extractor, action hide selector, Shadow DOM, Shadow DOM injection, CSS Scoping, Chrome Extension MV3, Manifest V3, React UI components, C++17 compiler, WebSocket hot reload, Web Component isolation, DOM scraping engine, legacy web modernization, declarative web reconstruction, legacy app redesign, DOM override framework, web app theme engine, CSRF token preservation, anti-flicker web engine, frontend modernization tool, open source web modernizer, web design tokens, CSS variables injection, headless DOM parser, web extension content script, shadow host mounting, JSON manifest compiler" />
+    <meta name="author" content="SPM Ecosystem Team" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#060606" />
+    <link rel="canonical" href="https://spm-ecosystem.github.io/spm-portal/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/spm-ecosystem/.github/main/profile/spm_logo.svg" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://spm-ecosystem.github.io/spm-portal/" />
+    <meta property="og:site_name" content="SPM Portal" />
+    <meta property="og:title" content="SPM Portal - Site Package Manager &amp; Veneer Spec DSL" />
+    <meta property="og:description" content="Declarative web application modernization engine, Veneer Spec DSL compiler, Shadow DOM component reconstruction, and theme tooling." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/spm-ecosystem/.github/main/profile/spm_logo.svg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://spm-ecosystem.github.io/spm-portal/" />
+    <meta name="twitter:title" content="SPM Portal - Site Package Manager &amp; Veneer Spec DSL" />
+    <meta name="twitter:description" content="Declarative web application modernization engine, Veneer Spec DSL compiler, Shadow DOM component reconstruction, and theme tooling." />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/spm-ecosystem/.github/main/profile/spm_logo.svg" />
+
+    <!-- Schema.org JSON-LD SoftwareApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Site Package Manager (SPM)",
+        "operatingSystem": "Web, Chrome Extension",
+        "applicationCategory": "DeveloperApplication",
+        "url": "https://spm-ecosystem.github.io/spm-portal/",
+        "description": "Declarative web application modernization engine, Veneer Spec DSL compiler, Shadow DOM component reconstruction, and theme tooling.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "SPM Ecosystem",
+          "url": "https://github.com/spm-ecosystem"
+        },
+        "keywords": [
+          "Site Package Manager", "SPM", "Veneer Spec", ".vnr DSL", "Shadow DOM modernization",
+          "spm-cli", "web extension theme compiler", "legacy web reconstruction", "React UI components"
+        ]
+      }
+    </script>
+
+    <!-- Schema.org JSON-LD FAQPage (Google Rich Snippets) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Who modernizes a website using Site Package Manager (SPM)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Frontend engineers, enterprise developers, and UI/UX designers use SPM to instantly upgrade legacy web applications (ASP.NET, PHP, Java JSP, legacy CMS) into modern React 19 interfaces without modifying backend source code."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How to modernize a legacy website without changing backend code?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "SPM modernizes legacy websites by running a browser content script engine that inspects target HTML elements, extracts un-structured data, hides legacy markup, and mounts state-of-the-art React components inside isolated Shadow DOM hosts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is Veneer Spec (.vnr)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Veneer Spec is a declarative Domain Specific Language (DSL) created for the SPM C++17 compiler (spm-cli). It provides class blueprints, single inheritance, DOM selectors, and component bindings to compile raw .vnr files into clean manifest.json theme payloads."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why use Shadow DOM for website modernization?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Shadow DOM guarantees full CSS and DOM encapsulation. It ensures legacy page stylesheets do not bleed into modern UI components and prevents modern component styles from breaking the host web page."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does SPM handle form submission and security tokens like CSRF?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "SPM supports hidden input preservation via the preserve: 'form | hiddenInputs' directive. It automatically extracts and moves CSRF tokens, session IDs, and security parameters from legacy forms to the modern React component DOM."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Site Package Manager open-source?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Site Package Manager is 100% open-source under the MIT license, available on GitHub across the SPM ecosystem repositories."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Inline Critical Anti-Flicker Styles -->
     <style>
       html, body {
         background-color: #060606 !important;
@@ -15,8 +129,8 @@
     <meta name="description" content="Unified documentation portal and interactive UI component explorer for the Site Package Manager (SPM) ecosystem.">
     <meta property="og:title" content="Site Package Manager (SPM) Portal">
     <meta property="og:description" content="Unified documentation portal and interactive UI component explorer for the Site Package Manager (SPM) ecosystem.">
-    <script type="module" crossorigin src="./assets/index-C3nuRCrx.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-RWEc5L_W.css">
+    <script type="module" crossorigin src="./assets/index-ruSEudfv.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-t_MzAT4Q.css">
   </head>
   <body style="background-color: #060606; color: #ffffff;">
     <div id="root"></div>
