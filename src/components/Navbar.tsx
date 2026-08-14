@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 
 const SPMLogo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -14,11 +14,7 @@ const SPMLogo = () => (
 
 export default function Navbar() {
   const loc = useLocation()
-  const [lang, setLang] = useState<'PT' | 'EN'>('PT')
-
-  const toggleLang = () => {
-    setLang(prev => (prev === 'PT' ? 'EN' : 'PT'))
-  }
+  const { toggleLang, t } = useLanguage()
 
   const navLink = (to: string, label: string) => {
     const active = loc.pathname === to || (to !== '/' && loc.pathname.startsWith(to))
@@ -67,11 +63,11 @@ export default function Navbar() {
           onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)')}
           onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-contrast)')}
         >
-          {lang} <span style={{ color: 'var(--text-subtle)', fontWeight: 600 }}>Idioma</span>
+          {t('lang_btn')}
         </button>
 
-        {navLink('/docs/getting-started', 'Docs')}
-        {navLink('/components', 'Components')}
+        {navLink('/docs/getting-started', t('nav_docs'))}
+        {navLink('/components', t('nav_components'))}
         <a href="https://github.com/spm-ecosystem" target="_blank" rel="noreferrer"
           style={{
             color: 'var(--text-muted)', textDecoration: 'none', fontSize: 13,
@@ -79,7 +75,7 @@ export default function Navbar() {
           }}
           onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
           onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
-        >GitHub ↗</a>
+        >{t('nav_github')}</a>
       </nav>
     </header>
   )

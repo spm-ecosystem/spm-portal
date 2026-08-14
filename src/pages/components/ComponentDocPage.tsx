@@ -2,6 +2,8 @@ import { useState, useMemo, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Navbar from '../../components/Navbar'
 import MarkdownDocViewer from '../../components/MarkdownDocViewer'
+import Footer from '../../components/Footer'
+import { useLanguage } from '../../context/LanguageContext'
 
 interface ComponentMeta {
   name: string
@@ -338,6 +340,7 @@ const getGenericComponentMeta = (name: string): ComponentMeta => ({
 export default function ComponentDocPage() {
   const { slug } = useParams<{ slug: string }>()
   const compSlug = slug || 'ui-table-list-page'
+  const { t } = useLanguage()
   
   const compMeta = COMPONENT_DATA[compSlug] || getGenericComponentMeta(compSlug.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(''))
 
@@ -366,10 +369,10 @@ export default function ComponentDocPage() {
   const rawUrl = `https://raw.githubusercontent.com/spm-ecosystem/spm-components/main/docs/components/${compMeta.name}.md`
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-absolute)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--bg-absolute)' }}>
       <Navbar />
 
-      <main style={{ maxWidth: 1180, margin: '0 auto', padding: '2.5rem 2rem 6rem' }}>
+      <main style={{ flex: 1, maxWidth: 1180, margin: '0 auto', padding: '2.5rem 2rem 6rem', width: '100%' }}>
         {/* Top Header Navigation */}
         <div style={{ marginBottom: '1.5rem' }}>
           <Link
@@ -380,7 +383,7 @@ export default function ComponentDocPage() {
               alignItems: 'center', gap: '0.4rem', marginBottom: '1rem'
             }}
           >
-            ← Voltar ao Catálogo de Componentes
+            {t('sandbox_back')}
           </Link>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.4rem' }}>
@@ -413,7 +416,7 @@ export default function ComponentDocPage() {
               borderRadius: '4px', fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, cursor: 'pointer'
             }}
           >
-            Playground &amp; Sandbox
+            {t('tab_sandbox')}
           </button>
 
           <button
@@ -426,7 +429,7 @@ export default function ComponentDocPage() {
               borderRadius: '4px', fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, cursor: 'pointer'
             }}
           >
-            Manual Técnico (.md)
+            {t('tab_doc')}
           </button>
         </div>
 
@@ -437,10 +440,10 @@ export default function ComponentDocPage() {
             <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', borderRadius: '6px', overflow: 'hidden' }}>
               <div style={{ background: 'var(--bg-element)', borderBottom: '1px solid var(--border-contrast)', padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#fff', fontWeight: 700 }}>
-                  Renderização ao Vivo (Shadow DOM)
+                  {t('label_shadow_dom')}
                 </span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-subtle)' }}>
-                  Atualiza ao editar o .vnr ➔
+                  {t('label_updates_live')}
                 </span>
               </div>
               <div style={{ padding: '1.75rem', background: '#060606', flexGrow: 1, display: 'flex', alignItems: 'center' }}>
@@ -452,7 +455,7 @@ export default function ComponentDocPage() {
             <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', borderRadius: '6px', overflow: 'hidden' }}>
               <div style={{ background: 'var(--bg-element)', borderBottom: '1px solid var(--border-contrast)', padding: '8px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#fff', fontWeight: 700 }}>
-                  {codeMode === 'vnr' ? 'Editor Veneer Spec (.vnr)' : 'Manifesto Compilado (manifest.json)'}
+                  {codeMode === 'vnr' ? t('label_vnr_editor') : t('label_manifest')}
                 </span>
 
                 <button
@@ -464,7 +467,7 @@ export default function ComponentDocPage() {
                     fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 600, cursor: 'pointer'
                   }}
                 >
-                  {codeMode === 'vnr' ? 'Ver Manifest JSON ➔' : '← Ver Veneer Spec (.vnr)'}
+                  {codeMode === 'vnr' ? t('btn_see_manifest') : t('btn_see_vnr')}
                 </button>
               </div>
 
@@ -508,6 +511,8 @@ export default function ComponentDocPage() {
           <MarkdownDocViewer url={rawUrl} />
         )}
       </main>
+
+      <Footer />
     </div>
   )
 }

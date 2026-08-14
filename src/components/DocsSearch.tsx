@@ -1,10 +1,12 @@
 import { useDeferredValue, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { searchDocs } from '../docsSearchIndex'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function DocsSearch() {
   const [query, setQuery] = useState('')
   const deferredQuery = useDeferredValue(query)
+  const { t } = useLanguage()
 
   const results = useMemo(() => {
     if (deferredQuery.trim().length < 3) return []
@@ -13,10 +15,10 @@ export default function DocsSearch() {
 
   return (
     <div className="docs-search">
-      <label className="eyebrow" htmlFor="docs-search-input">Busca rápida</label>
+      <label className="eyebrow" htmlFor="docs-search-input">{t('search_label')}</label>
       <input
         id="docs-search-input"
-        placeholder="Buscar docs..."
+        placeholder={t('search_placeholder')}
         spellCheck={false}
         value={query}
         onChange={event => setQuery(event.target.value)}
@@ -31,7 +33,7 @@ export default function DocsSearch() {
               </Link>
             ))
           ) : (
-            <p>Sem resultados.</p>
+            <p>{t('search_no_results')}</p>
           )}
         </div>
       )}

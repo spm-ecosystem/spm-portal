@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import { useLanguage } from '../context/LanguageContext'
 
 const portalSections = [
   {
@@ -132,6 +134,7 @@ const workflowSteps = [
 
 export default function Home() {
   const [split, setSplit] = useState(50)
+  const { t } = useLanguage()
 
   const updateSplit = (clientX: number, element: HTMLDivElement) => {
     const rect = element.getBoundingClientRect()
@@ -411,6 +414,60 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Section 4: Frequently Asked Questions (FAQ) */}
+      <section style={{ maxWidth: 1180, margin: '0 auto', padding: '6rem 2rem', borderTop: '1px solid var(--border-contrast)' }}>
+        <p className="eyebrow" style={{ textAlign: 'center', marginBottom: '0.5rem' }}>{t('home_faq_eyebrow')}</p>
+        <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>{t('home_faq_title')}</h2>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+          {[
+            {
+              q: 'Who modernizes a website using Site Package Manager (SPM)?',
+              a: 'Frontend engineers, enterprise developers, and UI/UX teams who need to upgrade legacy web applications (ASP.NET, PHP, Java JSP, legacy CMS) into modern React 19 interfaces without modifying backend source code.'
+            },
+            {
+              q: 'How to modernize a legacy website without changing backend code?',
+              a: 'SPM modernizes legacy websites by running a browser content script engine that inspects target HTML elements, extracts un-structured data, hides legacy markup, and mounts state-of-the-art React components inside isolated Shadow DOM hosts.'
+            },
+            {
+              q: 'What is Veneer Spec (.vnr)?',
+              a: 'Veneer Spec is a declarative Domain Specific Language (DSL) created for the SPM C++17 compiler (spm-cli). It provides class blueprints, single inheritance, DOM selectors, and component bindings to compile raw .vnr files into clean manifest.json theme payloads.'
+            },
+            {
+              q: 'Why use Shadow DOM for website modernization?',
+              a: 'Shadow DOM guarantees full CSS and DOM encapsulation. It ensures legacy page stylesheets do not bleed into modern UI components and prevents modern component styles from breaking the host web page.'
+            },
+            {
+              q: 'How does SPM handle form submission and security tokens like CSRF?',
+              a: 'SPM supports hidden input preservation via the preserve: "form | hiddenInputs" directive. It automatically extracts and moves CSRF tokens, session IDs, and security parameters from legacy forms to the modern React component DOM.'
+            },
+            {
+              q: 'Is Site Package Manager open-source?',
+              a: 'Yes, Site Package Manager is 100% open-source under the MIT license, available on GitHub across the SPM ecosystem repositories.'
+            }
+          ].map(faq => (
+            <div key={faq.q} style={{
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-contrast)',
+              borderRadius: '6px',
+              padding: '1.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              justify: 'space-between'
+            }}>
+              <h3 style={{ fontSize: '15px', color: '#fff', fontWeight: 700, margin: '0 0 0.75rem', lineHeight: 1.4 }}>
+                {faq.q}
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0, lineHeight: 1.6 }}>
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <Footer />
     </div>
   )
 }

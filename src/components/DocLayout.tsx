@@ -2,17 +2,19 @@ import { Link, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import type { ReactNode } from 'react'
 import DocsSearch from './DocsSearch'
+import Footer from './Footer'
+import { useLanguage } from '../context/LanguageContext'
 
 interface NavItem {
-  label: string
+  labelKey: string
   to: string
   children?: { label: string; to: string }[]
 }
 
 const docNav: NavItem[] = [
-  { label: 'Primeiros passos', to: '/docs/getting-started' },
+  { labelKey: 'nav_getting_started', to: '/docs/getting-started' },
   { 
-    label: 'Veneer Spec DSL', 
+    labelKey: 'nav_veneer', 
     to: '/docs/veneer',
     children: [
       { label: 'Visão Geral & Motivação', to: '/docs/veneer/introduction' },
@@ -25,8 +27,8 @@ const docNav: NavItem[] = [
       { label: 'Diagnósticos & CLI', to: '/docs/veneer/tooling' },
     ]
   },
-  { label: 'Manifest Schema', to: '/docs/manifest' },
-  { label: 'CLI & Tooling', to: '/docs/tooling' },
+  { labelKey: 'nav_manifest', to: '/docs/manifest' },
+  { labelKey: 'nav_tooling', to: '/docs/tooling' },
 ]
 
 interface DocLayoutProps {
@@ -36,11 +38,12 @@ interface DocLayoutProps {
 
 export default function DocLayout({ children, title }: DocLayoutProps) {
   const loc = useLocation()
+  const { t } = useLanguage()
   
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-absolute)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--bg-absolute)' }}>
       <Navbar />
-      <div style={{ display: 'flex', maxWidth: 1200, margin: '0 auto' }}>
+      <div style={{ display: 'flex', maxWidth: 1200, margin: '0 auto', width: '100%', flex: 1 }}>
         {/* Sidebar */}
         <aside style={{
           width: 250, flexShrink: 0, paddingTop: '2.5rem',
@@ -49,7 +52,7 @@ export default function DocLayout({ children, title }: DocLayoutProps) {
           borderRight: '1px solid var(--border-contrast)',
         }}>
           <DocsSearch />
-          <p className="eyebrow" style={{ marginBottom: '0.75rem', paddingLeft: '1rem' }}>Documentação</p>
+          <p className="eyebrow" style={{ marginBottom: '0.75rem', paddingLeft: '1rem' }}>{t('sidebar_title')}</p>
           
           {docNav.map(n => {
             const isMainActive = loc.pathname === n.to || loc.pathname.startsWith(n.to + '/')
@@ -71,7 +74,7 @@ export default function DocLayout({ children, title }: DocLayoutProps) {
                   onMouseEnter={e => { if (!isExactActive) { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'var(--bg-element)' } }}
                   onMouseLeave={e => { if (!isExactActive) { e.currentTarget.style.color = isMainActive ? '#fff' : 'var(--text-muted)'; e.currentTarget.style.background = 'transparent' } }}
                 >
-                  {n.label}
+                  {t(n.labelKey)}
                 </Link>
 
                 {/* Render sub-items if parent is active or has children */}
@@ -112,6 +115,7 @@ export default function DocLayout({ children, title }: DocLayoutProps) {
           {children}
         </main>
       </div>
+      <Footer />
     </div>
   )
 }
