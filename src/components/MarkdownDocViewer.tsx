@@ -1,14 +1,33 @@
 import { useEffect, useState } from 'react'
 import { marked } from 'marked'
-import Navbar from './Navbar'
+import { highlightCodeBlock } from '../utils/codeHighlighter'
 
 interface MarkdownDocViewerProps {
   url: string
-  title?: string
   fallbackContent?: string
 }
 
-export default function MarkdownDocViewer({ url, title, fallbackContent }: MarkdownDocViewerProps) {
+function cleanLaTeXMath(rawText: string): string {
+  return rawText
+    .replace(/\$\$\\text\{Selector\}\s*\\quad\s*\|\s*\\quad\s*\\text\{Operation\}\$\$/g, '`selector | operation`')
+    .replace(/\$\$\\text\{([^\}]+)\}\s*\\quad\s*\|\s*\\quad\s*\\text\{([^\}]+)\}\$\$/g, '`$1 | $2`')
+    .replace(/\$\$(.*?)\$\$/g, '`$1`')
+}
+
+function applySyntaxHighlighting(rawHtml: string): string {
+  if (typeof window === 'undefined') return rawHtml
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(rawHtml, 'text/html')
+  
+  doc.querySelectorAll('pre code').forEach((codeEl) => {
+    const rawCode = codeEl.textContent || ''
+    codeEl.innerHTML = highlightCodeBlock(rawCode)
+  })
+
+  return doc.body.innerHTML
+}
+
+export default function MarkdownDocViewer({ url, fallbackContent }: MarkdownDocViewerProps) {
   const [html, setHtml] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
@@ -25,16 +44,20 @@ export default function MarkdownDocViewer({ url, title, fallbackContent }: Markd
       })
       .then(async text => {
         if (!isMounted) return
-        const parsed = await marked.parse(text)
-        setHtml(parsed)
+        const cleaned = cleanLaTeXMath(text)
+        const parsed = await marked.parse(cleaned)
+        const highlighted = applySyntaxHighlighting(parsed)
+        setHtml(highlighted)
         setLoading(false)
       })
       .catch(err => {
         if (!isMounted) return
         if (fallbackContent) {
-          marked.parse(fallbackContent).then(parsed => {
+          const cleaned = cleanLaTeXMath(fallbackContent)
+          marked.parse(cleaned).then(parsed => {
             if (isMounted) {
-              setHtml(parsed)
+              const highlighted = applySyntaxHighlighting(parsed)
+              setHtml(highlighted)
               setLoading(false)
             }
           })
@@ -49,36 +72,26 @@ export default function MarkdownDocViewer({ url, title, fallbackContent }: Markd
     }
   }, [url, fallbackContent])
 
+  if (loading) {
+    return (
+      <div style={{ padding: '2rem 0', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
+        Carregando documentação...
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: '1rem', background: '#2d1517', border: '1px solid #5c2225', borderRadius: 4, color: '#f87171', fontSize: 13 }}>
+        Falha ao carregar documentação ao vivo: {error}
+      </div>
+    )
+  }
+
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-absolute)', color: 'var(--text-primary)' }}>
-      <Navbar />
-      <main style={{ maxWidth: 1000, margin: '0 auto', padding: '3rem 2rem 6rem' }}>
-        {title && <h1 className="section-title" style={{ margin: '0 0 1.5rem' }}>{title}</h1>}
-
-        {loading && (
-          <div style={{ padding: '3rem 0', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-            Carregando documentação sincronizada do repositório...
-          </div>
-        )}
-
-        {error && !loading && (
-          <div style={{ padding: '1.5rem', background: '#2d1517', border: '1px solid #5c2225', borderRadius: 6, color: '#f87171', fontSize: 13 }}>
-            Falha ao carregar a documentação ao vivo do repositório: {error}
-          </div>
-        )}
-
-        {!loading && !error && (
-          <div
-            className="prose-spm"
-            dangerouslySetInnerHTML={{ __html: html }}
-            style={{
-              lineHeight: 1.7,
-              fontSize: 14,
-              color: 'var(--text-primary)'
-            }}
-          />
-        )}
-      </main>
-    </div>
+    <div
+      className="prose-spm"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   )
 }

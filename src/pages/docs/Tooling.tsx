@@ -1,4 +1,5 @@
 import DocLayout from '../../components/DocLayout'
+import CodeBlock from '../../components/CodeBlock'
 
 const SectionHeading = ({ children }: { children: string }) => (
   <h2 style={{ fontSize: 18, fontWeight: 700, color: '#fff', letterSpacing: 0, margin: '2.5rem 0 1rem', paddingBottom: '0.5rem', borderBottom: '1px solid var(--border-contrast)' }}>
@@ -26,11 +27,13 @@ export default function Tooling() {
         O ponto central do tooling é transformar arquivos <code>.vnr</code> em um <code>manifest.json</code> único.
         A extensão deve consumir esse manifesto sem depender dos detalhes internos do compilador.
       </p>
-      <pre style={{ margin: '0 0 1.5rem' }}>{`# Compilar uma pasta de tema
+
+      <CodeBlock>{`# Compilar uma pasta de tema
 spm compile theme/ -o theme/manifest.json
 
 # Compilar um arquivo isolado
-spm compile theme/pages/gallery.vnr -o /tmp/gallery.json`}</pre>
+spm compile theme/pages/gallery.vnr -o /tmp/gallery.json`}</CodeBlock>
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
         {[
           { title: 'Lexing', desc: 'Remove comentários e transforma a Veneer Spec em tokens.' },
@@ -47,12 +50,14 @@ spm compile theme/pages/gallery.vnr -o /tmp/gallery.json`}</pre>
         O modo de desenvolvimento deve observar mudanças no tema e notificar a extensão quando um manifesto novo
         estiver pronto para aplicação na aba aberta.
       </p>
-      <pre style={{ margin: '0 0 1.5rem' }}>{`spm dev -d /path/to/theme/
+
+      <CodeBlock>{`spm dev -d /path/to/theme/
 
 # Saida esperada
 # SPM Dev Server - ws://localhost:8080
 # Monitoring: /path/to/theme/
-# [Watcher] Syncing changes...`}</pre>
+# [Watcher] Syncing changes...`}</CodeBlock>
+
       <FeatureCard
         title="Payload do watcher"
         desc="O servidor recompila .vnr quando recebe um diretório ou arquivo, agrega CSS do tema e envia um JSON com manifest e css para a extensão."
@@ -84,7 +89,8 @@ spm compile theme/pages/gallery.vnr -o /tmp/gallery.json`}</pre>
       <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '1rem' }}>
         A publicação deve enviar artefatos compilados, não arquivos fonte soltos. O provedor de storage fica fora do contrato do portal.
       </p>
-      <pre>{`# Pipeline simplificado
+
+      <CodeBlock>{`# Pipeline simplificado de publicação (GitHub Actions / CI/CD)
 on:
   push:
     branches: [main]
@@ -97,7 +103,7 @@ jobs:
       - name: Compilar temas
         run: spm compile themes/ -o dist/manifest.json
       - name: Publicar artefatos
-        run: ./scripts/deploy-themes dist/`}</pre>
+        run: ./scripts/deploy-themes dist/`}</CodeBlock>
 
       <SectionHeading>Comandos expostos</SectionHeading>
       <div style={{ marginBottom: '1rem' }}>

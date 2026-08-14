@@ -1,13 +1,10 @@
 import DocLayout from '../../components/DocLayout'
+import CodeBlock from '../../components/CodeBlock'
 
 const SectionHeading = ({ children }: { children: string }) => (
   <h2 style={{ fontSize: 18, fontWeight: 700, color: '#fff', letterSpacing: 0, margin: '2.5rem 0 1rem', paddingBottom: '0.5rem', borderBottom: '1px solid var(--border-contrast)' }}>
     {children}
   </h2>
-)
-
-const CodeBlock = ({ children }: { children: string }) => (
-  <pre style={{ margin: '1rem 0 1.5rem' }}>{children.trim()}</pre>
 )
 
 const Step = ({ n, title, children }: { n: number; title: string; children: React.ReactNode }) => (
