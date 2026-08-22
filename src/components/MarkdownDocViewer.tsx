@@ -54,7 +54,7 @@ export default function MarkdownDocViewer({ url, fallbackContent }: MarkdownDocV
         if (!isMounted) return
         if (fallbackContent) {
           const cleaned = cleanLaTeXMath(fallbackContent)
-          marked.parse(cleaned).then(parsed => {
+          Promise.resolve(marked.parse(cleaned)).then(parsed => {
             if (isMounted) {
               const highlighted = applySyntaxHighlighting(parsed)
               setHtml(highlighted)

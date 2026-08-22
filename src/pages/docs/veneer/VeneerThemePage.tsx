@@ -2,7 +2,7 @@ import DocLayout from '../../../components/DocLayout'
 import CodeBlock from '../../../components/CodeBlock'
 import { Link } from 'react-router-dom'
 
-const SectionHeading = ({ children }: { children: string }) => (
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   <h2 style={{ fontSize: 18, fontWeight: 700, color: '#fff', letterSpacing: 0, margin: '2.5rem 0 1rem', paddingBottom: '0.5rem', borderBottom: '1px solid var(--border-contrast)' }}>
     {children}
   </h2>

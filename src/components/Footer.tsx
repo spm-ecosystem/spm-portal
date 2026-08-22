@@ -135,7 +135,7 @@ export default function Footer() {
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justify: 'space-between',
+          justifyContent: 'space-between',
           gap: '1rem',
           fontSize: 12,
           color: 'var(--text-subtle)',

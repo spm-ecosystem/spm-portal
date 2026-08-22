@@ -454,7 +454,7 @@ export default function Home() {
               padding: '1.5rem',
               display: 'flex',
               flexDirection: 'column',
-              justify: 'space-between'
+              justifyContent: 'space-between'
             }}>
               <h3 style={{ fontSize: '15px', color: '#fff', fontWeight: 700, margin: '0 0 0.75rem', lineHeight: 1.4 }}>
                 {faq.q}
