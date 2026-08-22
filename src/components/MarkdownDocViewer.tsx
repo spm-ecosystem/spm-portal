@@ -27,6 +27,19 @@ function applySyntaxHighlighting(rawHtml: string): string {
   return doc.body.innerHTML
 }
 
+const bundledDocs = import.meta.glob<string>('/src/docs/*.md', { query: '?raw', import: 'default', eager: true })
+
+function getBundledDoc(url: string): string | null {
+  try {
+    const filename = url.split('/').pop()
+    if (!filename) return null
+    const matchKey = Object.keys(bundledDocs).find(key => key.endsWith('/' + filename))
+    return matchKey ? bundledDocs[matchKey] : null
+  } catch {
+    return null
+  }
+}
+
 export default function MarkdownDocViewer({ url, fallbackContent }: MarkdownDocViewerProps) {
   const [html, setHtml] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
@@ -37,11 +50,15 @@ export default function MarkdownDocViewer({ url, fallbackContent }: MarkdownDocV
     setLoading(true)
     setError(null)
 
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
-        return res.text()
-      })
+    const bundledText = getBundledDoc(url)
+    const sourcePromise = bundledText
+      ? Promise.resolve(bundledText)
+      : fetch(url).then(res => {
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+          return res.text()
+        })
+
+    sourcePromise
       .then(async text => {
         if (!isMounted) return
         const cleaned = cleanLaTeXMath(text)

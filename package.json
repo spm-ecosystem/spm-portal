@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
+    "sync-docs": "node scripts/sync-docs.js",
+    "dev": "node scripts/sync-docs.js && vite --host 0.0.0.0",
+    "build": "node scripts/sync-docs.js && tsc --noEmit && vite build",
     "preview": "vite preview",
     "format": "oxfmt"
   },
