@@ -10,14 +10,31 @@ if (!fs.existsSync(docsTargetDir)) {
   fs.mkdirSync(docsTargetDir, { recursive: true });
 }
 
-// 1. Copy manifest_schema.md from spm-cli/docs
-const cliDocPath = path.join(root, '../spm-cli/docs/manifest_schema.md');
-if (fs.existsSync(cliDocPath)) {
-  fs.copyFileSync(cliDocPath, path.join(docsTargetDir, 'manifest_schema.md'));
-  console.log('[sync-docs] Copied manifest_schema.md');
+// 1. Copy CLI documentation files from spm-cli/docs
+const cliDocsDir = path.join(root, '../spm-cli/docs');
+if (fs.existsSync(cliDocsDir)) {
+  const cliFiles = fs.readdirSync(cliDocsDir);
+  for (const file of cliFiles) {
+    if (file.endsWith('.md')) {
+      fs.copyFileSync(path.join(cliDocsDir, file), path.join(docsTargetDir, file));
+      console.log(`[sync-docs] Copied CLI doc: ${file}`);
+    }
+  }
 }
 
-// 2. Copy component docs from spm-components/docs/components
+// 2. Copy component manuals from spm-components/docs
+const compBaseDocsDir = path.join(root, '../spm-components/docs');
+if (fs.existsSync(compBaseDocsDir)) {
+  const baseFiles = fs.readdirSync(compBaseDocsDir);
+  for (const file of baseFiles) {
+    if (file.endsWith('.md')) {
+      fs.copyFileSync(path.join(compBaseDocsDir, file), path.join(docsTargetDir, file));
+      console.log(`[sync-docs] Copied base component manual: ${file}`);
+    }
+  }
+}
+
+// 3. Copy detailed component specs from spm-components/docs/components
 const compDocsDir = path.join(root, '../spm-components/docs/components');
 if (fs.existsSync(compDocsDir)) {
   const files = fs.readdirSync(compDocsDir);
@@ -28,5 +45,5 @@ if (fs.existsSync(compDocsDir)) {
       count++;
     }
   }
-  console.log(`[sync-docs] Copied ${count} component doc files.`);
+  console.log(`[sync-docs] Copied ${count} component spec markdown files.`);
 }
