@@ -1,0 +1,1 @@
+import{t as e}from"./vendor-react-blWa-pWN.js";import{t}from"./MarkdownDocViewer-BF1XRLlp.js";import{t as n}from"./DocLayout-yLte9nkG.js";var r=e();function i(){return(0,r.jsx)(n,{title:`Theme Manifest Schema Reference`,children:(0,r.jsx)(t,{url:`https://raw.githubusercontent.com/spm-ecosystem/spm-cli/main/docs/manifest_schema.md`})})}export{i as default};
