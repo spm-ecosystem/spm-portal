@@ -135,7 +135,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Language>(() => {
     const saved = localStorage.getItem('spm_portal_lang')
-    return (saved === 'en' || saved === 'pt') ? saved : 'pt'
+    return (saved === 'en' || saved === 'pt') ? saved : 'en'
   })
 
   useEffect(() => {
@@ -151,7 +151,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   const t = (key: string): string => {
-    return TRANSLATIONS[lang]?.[key] || TRANSLATIONS.pt[key] || key
+    return TRANSLATIONS[lang]?.[key] || TRANSLATIONS.en[key] || TRANSLATIONS.pt[key] || key
   }
 
   return (
