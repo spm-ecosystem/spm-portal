@@ -2,6 +2,7 @@ import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
+import fs from 'node:fs'
 
 import siteConfiguration from './.figma/make/site.json'
 
@@ -39,7 +40,9 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        '@spm/components': path.resolve(__dirname, '../extension/src/components'),
+        '@spm/components': fs.existsSync(path.resolve(__dirname, './spm-components'))
+          ? path.resolve(__dirname, './spm-components')
+          : path.resolve(__dirname, '../extension/src/components'),
       },
     },
     server: {
