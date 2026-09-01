@@ -9,7 +9,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@spm/components/*": ["../extension/src/components/*"]
+      "@spm/components/*": [
+        "./spm-components/*",
+        "../extension/src/components/*"
+      ]
     },
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
