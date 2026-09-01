@@ -7,34 +7,34 @@ import { useLanguage } from '../context/LanguageContext'
 const portalSections = [
   {
     index: '01',
-    badge: 'Guia Rápido',
-    title: 'Documentação Operacional',
-    desc: 'Passo a passo completo de instalação local, build da extensão Chrome, injeção de scripts no navegador e sistema de anti-flicker.',
-    tags: ['Instalação', 'Build MV3', 'Anti-Flicker'],
+    badge: 'Quick Guide',
+    title: 'Operational Documentation',
+    desc: 'Complete step-by-step instructions for local installation, Chrome extension build, browser script injection, and anti-flicker system.',
+    tags: ['Installation', 'MV3 Build', 'Anti-Flicker'],
     href: '/docs/getting-started',
   },
   {
     index: '02',
-    badge: 'Gramática DSL',
+    badge: 'DSL Grammar',
     title: 'Veneer Spec DSL',
-    desc: 'Sintaxe declarativa para extrair seletores do DOM legado, definir classes com herança e mapear bindings diretamente para componentes React.',
-    tags: ['Classes & Herança', 'Bindings', 'Regex Raw Strings'],
+    desc: 'Declarative syntax to extract legacy DOM selectors, define classes with inheritance, and map bindings directly to React components.',
+    tags: ['Classes & Inheritance', 'Bindings', 'Regex Raw Strings'],
     href: '/docs/veneer',
   },
   {
     index: '03',
-    badge: 'Especificação Schema',
+    badge: 'Schema Specification',
     title: 'Manifest Schema Reference',
-    desc: 'Estrutura e contrato do formato JSON emitido pelo compilador spm-cli e consumido pela extensão para reconstrução de páginas em runtime.',
+    desc: 'Structure and contract of the JSON format emitted by the spm-cli compiler and consumed by the extension for runtime page reconstruction.',
     tags: ['JSON Schema', 'Props Extraction', 'Shadow DOM Slots'],
     href: '/docs/manifest',
   },
   {
     index: '04',
-    badge: 'Biblioteca UI',
-    title: 'Catálogo de Componentes',
-    desc: 'Contratos e especificações dos 17 componentes React (primitivas e dedicados) pré-construídos para montar páginas modernas no Shadow DOM.',
-    tags: ['17 Componentes', 'CSS Variables', 'Shadow Isolation'],
+    badge: 'UI Library',
+    title: 'Component Catalog',
+    desc: 'Contracts and specifications for the 17 pre-built React components (primitives and dedicated) to assemble modern pages in Shadow DOM.',
+    tags: ['17 Components', 'CSS Variables', 'Shadow Isolation'],
     href: '/components',
   },
 ]
@@ -43,20 +43,20 @@ const workflowSteps = [
   {
     step: '01',
     phase: 'DOM Scraping',
-    title: 'Inspecionar DOM Legado',
-    desc: 'Mapeie os containers, tabelas, formulários e elementos existentes na aplicação original. O SPM identifica como os dados estão organizados no HTML legado para reutilizá-los.',
+    title: 'Inspect Legacy DOM',
+    desc: 'Map existing containers, tables, forms, and elements in the original application. SPM identifies how data is structured in legacy HTML for reuse.',
     bullets: [
-      'Identificação de seletores CSS estáveis',
-      'Preservação de inputs ocultos de segurança',
-      'Mapeamento de listas e tabelas de dados',
+      'Identification of stable CSS selectors',
+      'Preservation of hidden security inputs',
+      'Mapping of data lists and tables',
     ],
-    terminalHeader: 'DOM Legado (Original)',
+    terminalHeader: 'Legacy DOM (Original)',
     jsxLines: [
-      <span key="1" className="syn-comment">&lt;!-- HTML Original da Página Legada --&gt;</span>,
+      <span key="1" className="syn-comment">&lt;!-- Original Legacy Page HTML --&gt;</span>,
       <span key="2">&lt;<span className="syn-tag">table</span> <span className="syn-attr">id</span>=<span className="syn-string">"legacy-grid"</span> <span className="syn-attr">class</span>=<span className="syn-string">"data-table"</span>&gt;</span>,
       <span key="3">&nbsp;&nbsp;&lt;<span className="syn-tag">tr</span> <span className="syn-attr">class</span>=<span className="syn-string">"item-row"</span>&gt;</span>,
       <span key="4">&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="syn-tag">td</span>&gt;&lt;<span className="syn-tag">a</span> <span className="syn-attr">href</span>=<span className="syn-string">"/item/102"</span>&gt;Item #102&lt;/<span className="syn-tag">a</span>&gt;&lt;/<span className="syn-tag">td</span>&gt;</span>,
-      <span key="5">&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="syn-tag">td</span>&gt;Ativo&lt;/<span className="syn-tag">td</span>&gt;</span>,
+      <span key="5">&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="syn-tag">td</span>&gt;Active&lt;/<span className="syn-tag">td</span>&gt;</span>,
       <span key="6">&nbsp;&nbsp;&lt;/<span className="syn-tag">tr</span>&gt;</span>,
       <span key="7">&lt;/<span className="syn-tag">table</span>&gt;</span>,
     ],
@@ -65,12 +65,12 @@ const workflowSteps = [
   {
     step: '02',
     phase: 'Layout DSL',
-    title: 'Declarar em Veneer Spec',
-    desc: 'Escreva regras de transformação em arquivos .vnr limpos. Mapeie os elementos raspados para propriedades de componentes React de forma declarativa e fortemente tipada.',
+    title: 'Declare in Veneer Spec',
+    desc: 'Write transformation rules in clean .vnr files. Map scraped elements to React component properties declaratively and with strong typing.',
     bullets: [
-      'Suporte a herança de classes (extends)',
-      'Extratores customizados (text, attr, html)',
-      'Expressões regulares sem escape em Raw Strings',
+      'Class inheritance support (extends)',
+      'Custom extractors (text, attr, html)',
+      'Unescaped regular expressions in Raw Strings',
     ],
     terminalHeader: 'Veneer Spec (.vnr)',
     jsxLines: [
@@ -90,32 +90,32 @@ const workflowSteps = [
   {
     step: '03',
     phase: 'C++ Toolchain',
-    title: 'Compilar com spm-cli',
-    desc: 'O compilador spm-cli processa os arquivos .vnr em velocidade nativa C++. Ele resolve grafos de herança, valida a sintaxe e gera o manifesto JSON otimizado com suporte a hot-reload por WebSockets.',
+    title: 'Compile with spm-cli',
+    desc: 'The spm-cli compiler processes .vnr files at native C++ speeds. It resolves inheritance graphs, validates syntax, and generates optimized JSON manifests with WebSocket hot-reload support.',
     bullets: [
-      'Compilação nativa ultra-rápida em C++17',
-      'Resolução de dependências circulares',
-      'Servidor de Hot-Reload via WebSockets (porta 8080)',
+      'Ultra-fast native C++17 compilation',
+      'Circular dependency resolution',
+      'Hot-Reload server via WebSockets (port 8080)',
     ],
     terminalHeader: 'Terminal (spm-cli)',
     jsxLines: [
       <span key="1" className="syn-cmd">$ ./spm compile theme/ -o dist/manifest.json</span>,
-      <span key="2" style={{ color: '#4ade80' }}>✓ Lexing &amp; AST parsing complete</span>,
-      <span key="3" style={{ color: '#4ade80' }}>✓ Blueprint class inheritance resolved</span>,
-      <span key="4" style={{ color: '#4ade80' }}>✓ Deep merged sibling manifest metadata</span>,
-      <span key="5" style={{ color: '#60a5fa' }}>➜ Compiled 1 manifest payload (1.2ms)</span>,
+      <span key="2" style={{ color: '#4ade80' }}>[OK] Lexing &amp; AST parsing complete</span>,
+      <span key="3" style={{ color: '#4ade80' }}>[OK] Blueprint class inheritance resolved</span>,
+      <span key="4" style={{ color: '#4ade80' }}>[OK] Deep merged sibling manifest metadata</span>,
+      <span key="5" style={{ color: '#60a5fa' }}>[RUN] Compiled 1 manifest payload (1.2ms)</span>,
     ],
     align: 'card-left',
   },
   {
     step: '04',
-    phase: 'Injeção React',
-    title: 'Montar em Shadow DOM',
-    desc: 'A extensão Chrome intercepta a página, aplica o CSS do tema globalmente, oculta os nós legados e renderiza o componente React 18 dentro de uma raiz de Shadow DOM isolada.',
+    phase: 'React Injection',
+    title: 'Mount in Shadow DOM',
+    desc: 'The Chrome extension intercepts the page, applies theme CSS globally, hides legacy nodes, and renders the React 18 component inside an isolated Shadow DOM root.',
     bullets: [
-      'Isolamento total de estilos CSS via Shadow Root',
-      'Preservação de eventos legados e submissão de formulários',
-      'Anti-flickering automático com transição suave',
+      'Full CSS style isolation via Shadow Root',
+      'Preservation of legacy events and form submission',
+      'Automatic anti-flicker with smooth transition',
     ],
     terminalHeader: 'Shadow DOM (React 18)',
     jsxLines: [
@@ -123,7 +123,7 @@ const workflowSteps = [
       <span key="2" className="syn-comment">&nbsp;&nbsp;#shadow-root (open)</span>,
       <span key="3">&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="syn-tag">style</span>&gt;<span className="syn-comment">/* Clean Theme CSS */</span>&lt;/<span className="syn-tag">style</span>&gt;</span>,
       <span key="4">&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="syn-class">UiTableListPage</span></span>,
-      <span key="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="syn-attr">pageTitle</span>=<span className="syn-string">"Documentos"</span></span>,
+      <span key="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="syn-attr">pageTitle</span>=<span className="syn-string">"Documents"</span></span>,
       <span key="6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="syn-attr">tableRows</span>={"{"}<span className="syn-prop">extractedData</span>{"}"}</span>,
       <span key="7">&nbsp;&nbsp;&nbsp;&nbsp;/&gt;</span>,
       <span key="8">&lt;/<span className="syn-tag">div</span>&gt;</span>,
@@ -157,29 +157,25 @@ export default function Home() {
           </h1>
 
           <p className="home-hero-copy">
-            Plataforma central de documentação e engenharia para modernização de sistemas web com Veneer Spec, manifestos compilados e React em Shadow DOM.
+            Central documentation and engineering platform for modernizing web systems using Veneer Spec, compiled manifests, and React in Shadow DOM.
           </p>
 
           <div className="home-actions">
-            <Link to="/docs/getting-started" className="home-primary-action">Começar pelos Docs</Link>
-            <Link to="/docs/veneer" className="home-secondary-action">Explorar Veneer Spec</Link>
+            <Link to="/docs/getting-started" className="home-primary-action">Get Started with Docs</Link>
+            <Link to="/docs/veneer" className="home-secondary-action">Explore Veneer Spec</Link>
           </div>
         </div>
-        <a className="home-scroll-cue" href="#portal-map" aria-label="Ir para a próxima seção">
-          <span>Scroll down</span>
-          <i />
-        </a>
       </section>
 
       {/* Portal Map Section (4-Card Grid) */}
       <section className="home-section-shell" id="portal-map">
         <div className="home-section-heading">
           <div>
-            <p className="eyebrow">Mapa de Recursos</p>
-            <h2>Escolha por onde explorar</h2>
+            <p className="eyebrow">Resource Map</p>
+            <h2>Choose Where to Explore</h2>
           </div>
           <p style={{ color: 'var(--text-muted)', fontSize: '15px', margin: 0, lineHeight: 1.6 }}>
-            Acesse os manuais técnicos do compilador, sintaxe do DSL, esquema JSON ou catálogo de componentes React.
+            Access technical manuals for the compiler, DSL syntax, JSON schema, or React component catalog.
           </p>
         </div>
 
@@ -200,7 +196,7 @@ export default function Home() {
               </div>
 
               <div className="portal-card-footer">
-                <span>Acessar documentação</span>
+                <span>Access documentation</span>
                 <span className="portal-arrow">→</span>
               </div>
             </Link>
@@ -211,16 +207,16 @@ export default function Home() {
       {/* Interactive Showcase with Veneer Spec Syntax Highlighting */}
       <section className="home-section-shell">
         <div style={{ marginBottom: '1.5rem' }}>
-          <p className="eyebrow" style={{ marginBottom: 6 }}>Showcase Interativo</p>
-          <h2 className="section-title" style={{ margin: 0 }}>Transformação Visual com Veneer Spec</h2>
+          <p className="eyebrow" style={{ marginBottom: 6 }}>Interactive Showcase</p>
+          <h2 className="section-title" style={{ margin: 0 }}>Visual Transformation with Veneer Spec</h2>
         </div>
 
         <div className="showcase-container-grid">
           {/* Left Column: Interactive Comparison Slider */}
           <div className="showcase-visual-column">
             <div className="showcase-slider-bar">
-              <span className="showcase-slider-title">Preview Visual ao Vivo</span>
-              <span className="showcase-slider-hint">Arraste ⇔ para comparar</span>
+              <span className="showcase-slider-title">Live Visual Preview</span>
+              <span className="showcase-slider-hint">Drag ⇔ to compare</span>
             </div>
 
             <div
@@ -236,42 +232,42 @@ export default function Home() {
             >
               {/* Underneath: Rendered Legacy HTML Page (Feia / Antiga) */}
               <div className="showcase-pane showcase-pane-legacy">
-                <div className="showcase-pane-badge legacy-badge">DOM Legado (Original)</div>
+                <div className="showcase-pane-badge legacy-badge">Legacy DOM (Original)</div>
                 
                 <div className="raw-legacy-page">
                   <div className="raw-legacy-header">
-                    <h3>Sistema de Arquivos Legado v1.0</h3>
-                    <small>Servidor: 192.168.1.4 | Protocolo: HTTP/1.0</small>
+                    <h3>Legacy File System v1.0</h3>
+                    <small>Server: 192.168.1.4 | Protocol: HTTP/1.0</small>
                   </div>
                   <div className="raw-legacy-content">
-                    <p className="raw-legacy-note">Listando 3 registros brutos no banco relacional:</p>
+                    <p className="raw-legacy-note">Listing 3 raw records in relational database:</p>
                     <table className="raw-legacy-table" border={1} cellPadding={6} cellSpacing={0}>
                       <thead>
                         <tr>
-                          <th>Cod</th>
-                          <th>Arquivo</th>
-                          <th>Categoria</th>
-                          <th>Ação</th>
+                          <th>Code</th>
+                          <th>File</th>
+                          <th>Category</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>#001</td>
-                          <td><a href="/docs/manual.pdf">manual_usuario.pdf</a></td>
+                          <td><a href="/docs/manual.pdf">user_manual.pdf</a></td>
                           <td>Docs</td>
-                          <td><a href="/docs/manual.pdf">[Baixar]</a></td>
+                          <td><a href="/docs/manual.pdf">[Download]</a></td>
                         </tr>
                         <tr>
                           <td>#002</td>
-                          <td><a href="/db/schema.sql">schema_banco.sql</a></td>
+                          <td><a href="/db/schema.sql">db_schema.sql</a></td>
                           <td>Database</td>
-                          <td><a href="/db/schema.sql">[Baixar]</a></td>
+                          <td><a href="/db/schema.sql">[Download]</a></td>
                         </tr>
                         <tr>
                           <td>#003</td>
-                          <td><a href="/config/app.json">config_producao.json</a></td>
+                          <td><a href="/config/app.json">prod_config.json</a></td>
                           <td>Config</td>
-                          <td><a href="/config/app.json">[Baixar]</a></td>
+                          <td><a href="/config/app.json">[Download]</a></td>
                         </tr>
                       </tbody>
                     </table>
@@ -281,39 +277,39 @@ export default function Home() {
 
               {/* Overlay: Rendered Modern SPM Component (React Component) */}
               <div className="showcase-pane showcase-pane-modern" style={{ clipPath: `inset(0 0 0 ${split}%)` }}>
-                <div className="showcase-pane-badge modern-badge">Componente React SPM (UiTableListPage)</div>
+                <div className="showcase-pane-badge modern-badge">SPM React Component (UiTableListPage)</div>
 
                 <div className="modern-component-render">
                   <div className="spm-ui-table-card">
                     <div className="spm-ui-table-header">
                       <div>
                         <span className="spm-comp-tag">UiTableListPage</span>
-                        <h4 className="spm-comp-title">Central de Arquivos</h4>
+                        <h4 className="spm-comp-title">File Center</h4>
                       </div>
-                      <span className="spm-item-count">3 registros</span>
+                      <span className="spm-item-count">3 records</span>
                     </div>
 
                     <div className="spm-ui-rows-list">
                       <div className="spm-ui-row-item">
                         <div className="spm-row-info">
-                          <span className="spm-file-name">manual_usuario.pdf</span>
+                          <span className="spm-file-name">user_manual.pdf</span>
                           <span className="spm-file-meta">Docs • #001</span>
                         </div>
-                        <span className="spm-action-btn">Baixar PDF →</span>
+                        <span className="spm-action-btn">Download PDF →</span>
                       </div>
                       <div className="spm-ui-row-item">
                         <div className="spm-row-info">
-                          <span className="spm-file-name">schema_banco.sql</span>
+                          <span className="spm-file-name">db_schema.sql</span>
                           <span className="spm-file-meta">Database • #002</span>
                         </div>
-                        <span className="spm-action-btn">Baixar SQL →</span>
+                        <span className="spm-action-btn">Download SQL →</span>
                       </div>
                       <div className="spm-ui-row-item">
                         <div className="spm-row-info">
-                          <span className="spm-file-name">config_producao.json</span>
+                          <span className="spm-file-name">prod_config.json</span>
                           <span className="spm-file-meta">Config • #003</span>
                         </div>
-                        <span className="spm-action-btn">Baixar JSON →</span>
+                        <span className="spm-action-btn">Download JSON →</span>
                       </div>
                     </div>
                   </div>
@@ -331,14 +327,14 @@ export default function Home() {
           {/* Right Column: Clean Code Window with Syntax Highlighting */}
           <div className="showcase-code-column">
             <div className="showcase-code-header">
-              <span className="showcase-code-badge">Script de Regra Veneer</span>
+              <span className="showcase-code-badge">Veneer Rule Script</span>
               <span className="showcase-file-name">theme/files.vnr</span>
             </div>
 
             <div className="showcase-code-box">
               <pre>
                 <code>
-                  <span className="syn-comment">// Script Veneer Spec (.vnr)</span>{'\n'}
+                  <span className="syn-comment">// Veneer Spec Script (.vnr)</span>{'\n'}
                   <span className="syn-keyword">class</span> <span className="syn-class">DocumentRow</span> {"{"}{'\n'}
                   {'  '}<span className="syn-keyword">bind</span> <span className="syn-prop">id</span>:       <span className="syn-string">"td:nth-child(1) | text"</span>;{'\n'}
                   {'  '}<span className="syn-keyword">bind</span> <span className="syn-prop">fileName</span>: <span className="syn-string">"td:nth-child(2) a | text"</span>;{'\n'}
@@ -346,7 +342,7 @@ export default function Home() {
                   {'  '}<span className="syn-keyword">bind</span> <span className="syn-prop">category</span>: <span className="syn-string">"td:nth-child(3) | text"</span>;{'\n'}
                   {"}"}{'\n\n'}
                   <span className="syn-keyword">reconstruct</span> <span className="syn-string">"#legacy-table"</span> <span className="syn-operator">-&gt;</span> <span className="syn-class">UiTableListPage</span> {"{"}{'\n'}
-                  {'  '}<span className="syn-prop">pageTitle</span>: <span className="syn-string">"Central de Arquivos"</span>;{'\n\n'}
+                  {'  '}<span className="syn-prop">pageTitle</span>: <span className="syn-string">"File Center"</span>;{'\n\n'}
                   {'  '}<span className="syn-keyword">child</span> <span className="syn-prop">tableRows</span> <span className="syn-keyword">extends</span> <span className="syn-class">DocumentRow</span> {"{"}{'\n'}
                   {'    '}<span className="syn-prop">selector</span>: <span className="syn-string">"tbody tr"</span>;{'\n'}
                   {'  }'}{'\n'}
@@ -362,11 +358,11 @@ export default function Home() {
       <section className="home-section-shell">
         <div className="home-section-heading" style={{ marginBottom: '3rem' }}>
           <div>
-            <p className="eyebrow">Fluxo de Arquitetura</p>
-            <h2>Como o SPM Transforma a Página</h2>
+            <p className="eyebrow">Architecture Flow</p>
+            <h2>How SPM Transforms the Page</h2>
           </div>
           <p style={{ color: 'var(--text-muted)', fontSize: '15px', margin: 0, lineHeight: 1.6 }}>
-            Processo passo a passo de transformação contínua do HTML antigo para React 18 em Shadow DOM.
+            Step-by-step process of continuous transformation from legacy HTML to React 18 in Shadow DOM.
           </p>
         </div>
 

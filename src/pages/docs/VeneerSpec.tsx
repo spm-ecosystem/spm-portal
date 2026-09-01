@@ -3,44 +3,44 @@ import { Link } from 'react-router-dom'
 
 const TOPICS = [
   {
-    title: '1. Visão Geral & Motivação',
+    title: '1. Overview & Motivation',
     to: '/docs/veneer/introduction',
-    desc: 'Por que a Veneer Spec foi criada, eliminação de JSONs manuais verbosos e paradigma de blueprinting.'
+    desc: 'Why Veneer Spec was created, eliminating verbose manual JSONs and introducing the blueprinting paradigm.'
   },
   {
-    title: '2. Sintaxe & Gramática Core',
+    title: '2. Core Syntax & Grammar',
     to: '/docs/veneer/syntax',
-    desc: 'Estrutura de arquivos .vnr, literais de string, raw strings r#"..."#, comentários e tabela de palavras-chave.'
+    desc: 'Structure of .vnr files, string literals, raw strings r#"..."#, comments, and keyword table.'
   },
   {
-    title: '3. Definição de Temas (theme)',
+    title: '3. Theme Definition (theme)',
     to: '/docs/veneer/theme',
-    desc: 'Bloco theme "Nome", mapeamento de variáveis CSS (variables) e folhas de estilo globais (customStyles).'
+    desc: 'theme "Name" block, CSS variable mapping (variables), and global stylesheets (customStyles).'
   },
   {
-    title: '4. Classes & Herança (class / extends)',
+    title: '4. Classes & Inheritance (class / extends)',
     to: '/docs/veneer/classes',
-    desc: 'Blueprints de dados reutilizáveis com class, herança simples via extends e escopamento por seletor.'
+    desc: 'Reusable data blueprints with class, single inheritance via extends, and selector scoping.'
   },
   {
-    title: '5. Reconstrução de Páginas (reconstruct)',
+    title: '5. Page Reconstruction (reconstruct)',
     to: '/docs/veneer/reconstruct',
-    desc: 'Injeção de componentes React em Shadow DOM, atribuição de props e preservação de CSRF tokens.'
+    desc: 'React component injection into Shadow DOM, prop assignment, and CSRF token preservation.'
   },
   {
-    title: '6. Bindings & Extratores (bind)',
+    title: '6. Bindings & Extractors (bind)',
     to: '/docs/veneer/bindings',
-    desc: 'Extração de listas com child e operadores extratores (text, attr, html, hiddenInputs).'
+    desc: 'List extraction with child and extractor operators (text, attr, html, hiddenInputs).'
   },
   {
-    title: '7. Seletores & Ações (selector)',
+    title: '7. Selectors & Actions (selector)',
     to: '/docs/veneer/selectors',
-    desc: 'Ocultamento e modificação direta de elementos legados no DOM com action: hide.'
+    desc: 'Hiding and direct modification of legacy DOM elements using action: hide.'
   },
   {
-    title: '8. Diagnósticos & CLI (spm compile)',
+    title: '8. Diagnostics & CLI (spm compile)',
     to: '/docs/veneer/tooling',
-    desc: 'Compilação de especificações .vnr via spm-cli, validação de AST e diagnósticos de erros de sintaxe.'
+    desc: 'Compilation of .vnr specifications via spm-cli, AST validation, and syntax error diagnostics.'
   }
 ]
 
@@ -48,7 +48,7 @@ export default function VeneerSpec() {
   return (
     <DocLayout title="Veneer Spec DSL Language Manual">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        A <strong style={{ color: '#fff' }}>Veneer Spec (.vnr)</strong> é a linguagem de domínio específico (DSL) declarativa do ecossistema SPM. Selecione um tópico abaixo para explorar o manual completo:
+        <strong style={{ color: '#fff' }}>Veneer Spec (.vnr)</strong> is the declarative Domain Specific Language (DSL) of the SPM ecosystem. Select a topic below to explore the full manual:
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
@@ -76,7 +76,7 @@ export default function VeneerSpec() {
               {topic.desc}
             </p>
             <span style={{ display: 'inline-block', marginTop: '1rem', color: '#fff', fontSize: '12px', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-              Acessar capítulo →
+              Open chapter →
             </span>
           </Link>
         ))}

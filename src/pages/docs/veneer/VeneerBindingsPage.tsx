@@ -10,59 +10,59 @@ const SectionHeading = ({ children }: { children: string }) => (
 
 export default function VeneerBindingsPage() {
   return (
-    <DocLayout title="Veneer Spec: Bindings & Extratores (bind)">
+    <DocLayout title="Veneer Spec: Bindings & Extractors (bind)">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        A instrução <code className="vnr-kw">bind</code> conecta propriedades de componentes a seletores CSS e extratores de conteúdo no DOM antigo.
+        The <code className="vnr-kw">bind</code> statement connects component properties to CSS selectors and content extractors in the legacy DOM.
       </p>
 
-      <SectionHeading>Sintaxe de Binding</SectionHeading>
+      <SectionHeading>Binding Syntax</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        A sintaxe padrão de um binding segue o formato <code>bind &lt;propriedade&gt;: "&lt;Seletor CSS&gt; | &lt;Operador Extrator&gt;"</code>:
+        The standard binding syntax follows the format <code>bind &lt;property&gt;: "&lt;CSS Selector&gt; | &lt;Extractor Operator&gt;"</code>:
       </p>
 
       <CodeBlock>{`bind fileName: "td:nth-child(2) a | text";
 bind downloadUrl: "td:nth-child(2) a | attr:href";`}</CodeBlock>
 
-      <SectionHeading>Operadores Extratores</SectionHeading>
+      <SectionHeading>Extractor Operators</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        O SPM inclui extratores integrados para ler diferentes partes dos nós do DOM antigo:
+        SPM includes built-in extractors to read different parts of legacy DOM nodes:
       </p>
 
       <table className="prose-spm" style={{ width: '100%', marginBottom: '2rem' }}>
         <thead>
           <tr>
-            <th>OPERADOR</th>
-            <th>EXEMPLO</th>
-            <th>DESCRIÇÃO DO COMPORTAMENTO</th>
+            <th>OPERATOR</th>
+            <th>EXAMPLE</th>
+            <th>BEHAVIOR DESCRIPTION</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><code className="vnr-op">text</code></td>
             <td><code>"h1 | text"</code></td>
-            <td>Extrai o texto interno limpo (<code>textContent.trim()</code>).</td>
+            <td>Extracts clean inner text (<code>textContent.trim()</code>).</td>
           </tr>
           <tr>
-            <td><code className="vnr-op">attr:&lt;nome&gt;</code></td>
+            <td><code className="vnr-op">attr:&lt;name&gt;</code></td>
             <td><code>"a | attr:href"</code></td>
-            <td>Lê o valor do atributo HTML (ex: <code>href</code>, <code>src</code>, <code>data-id</code>).</td>
+            <td>Reads the HTML attribute value (e.g. <code>href</code>, <code>src</code>, <code>data-id</code>).</td>
           </tr>
           <tr>
             <td><code className="vnr-op">html</code></td>
             <td><code>"div.content | html"</code></td>
-            <td>Extrai o código HTML interno preservando formatação (<code>innerHTML</code>).</td>
+            <td>Extracts inner HTML code preserving markup (<code>innerHTML</code>).</td>
           </tr>
           <tr>
             <td><code className="vnr-op">hiddenInputs</code></td>
             <td><code>"form | hiddenInputs"</code></td>
-            <td>Extrai um vetor JSON com todos os pares <code>name</code> e <code>value</code> de inputs ocultos.</td>
+            <td>Extracts a JSON array with all <code>name</code> and <code>value</code> pairs of hidden inputs.</td>
           </tr>
         </tbody>
       </table>
 
-      <SectionHeading>Extração de Listas Repetidas com child</SectionHeading>
+      <SectionHeading>Repeated List Extraction with child</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Para raspar tabelas com múltiplas linhas ou grades de cartões, use o bloco <code className="vnr-kw">child</code> dentro do <code className="vnr-kw">reconstruct</code> indicando a classe blueprint de extração:
+        To scrape multi-row tables or card grids, use the <code className="vnr-kw">child</code> block inside <code className="vnr-kw">reconstruct</code> referencing the extraction blueprint class:
       </p>
 
       <CodeBlock>{`class TableRowItem {
@@ -72,9 +72,9 @@ bind downloadUrl: "td:nth-child(2) a | attr:href";`}</CodeBlock>
 }
 
 reconstruct "#documents-table" -> UiTableListPage {
-  pageTitle: "Arquivos do Servidor";
+  pageTitle: "Server Files";
 
-  // Mapeia todas as tr do tbody usando a classe TableRowItem
+  // Maps all tr elements in tbody using the TableRowItem class
   child tableRows extends TableRowItem {
     selector: "tbody tr";
   }
@@ -82,10 +82,10 @@ reconstruct "#documents-table" -> UiTableListPage {
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid var(--border-contrast)' }}>
         <Link to="/docs/veneer/reconstruct" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-          ← Anterior: Reconstrução (reconstruct)
+          ← Previous: Reconstruction (reconstruct)
         </Link>
         <Link to="/docs/veneer/selectors" style={{ color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700 }}>
-          Próximo: Seletores &amp; Ações →
+          Next: Selectors &amp; Actions →
         </Link>
       </div>
     </DocLayout>

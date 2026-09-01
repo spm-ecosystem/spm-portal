@@ -3,18 +3,27 @@
 @import 'tailwindcss';
 
 :root {
-  --bg-absolute:  #060606;
-  --bg-surface:   #0D0D0F;
-  --bg-element:   #171719;
-  --bg-hover:     #222225;
-  --border-contrast: #27272A;
-  --border-focus:    #FFFFFF;
-  --text-pure:    #FFFFFF;
-  --text-primary: #E8E8EA;
-  --text-muted:   #A7A7AE;
-  --text-subtle:  #71717A;
-  --text-code:    #F4F4F5;
-  --radius-technical: 4px;
+  --bg-absolute:  #09090b;
+  --bg-surface:   #121215;
+  --bg-element:   #18181b;
+  --bg-hover:     #27272a;
+  --border-contrast: rgba(255, 255, 255, 0.1);
+  --border-focus:    #ffffff;
+  --text-pure:    #ffffff;
+  --text-primary: #f4f4f5;
+  --text-muted:   #a1a1aa;
+  --text-subtle:  #71717a;
+  --text-code:    #f4f4f5;
+  --spm-accent:   #ffffff;
+  --spm-accent-fg: #000000;
+  --spm-bg-surface: #121215;
+  --spm-bg-primary: #09090b;
+  --spm-bg-secondary: #18181b;
+  --spm-bg-tertiary: #27272a;
+  --spm-border: rgba(255, 255, 255, 0.1);
+  --spm-text-primary: #f4f4f5;
+  --spm-text-muted: #a1a1aa;
+  --radius-technical: 6px;
   --font-sans: 'Inter', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
@@ -170,11 +179,7 @@ p, h1, h2, h3 { margin-top: 0; }
 }
 
 .spm-home {
-  height: 100vh;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  overscroll-behavior-y: contain;
+  min-height: 100vh;
   background:
     radial-gradient(circle at 50% 12%, rgba(255,255,255,0.035), transparent 24rem),
     linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
@@ -202,8 +207,6 @@ p, h1, h2, h3 { margin-top: 0; }
   margin: 0 auto;
   padding-left: 3rem;
   padding-right: 3rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 
 .home-hero-shell {

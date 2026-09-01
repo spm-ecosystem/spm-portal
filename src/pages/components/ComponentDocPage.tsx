@@ -7,7 +7,7 @@ import { useLanguage } from '../../context/LanguageContext'
 
 interface ComponentMeta {
   name: string
-  category: 'Primitivas de Layout' | 'Componentes Dedicados'
+  category: 'Layout Primitives' | 'Dedicated Components'
   description: string
   initialVnr: string
   parseVnrToProps: (vnrText: string) => Record<string, any>
@@ -15,46 +15,7 @@ interface ComponentMeta {
   renderPreview: (props: Record<string, any>) => React.ReactNode
 }
 
-function colorizeVnrLine(line: string): string {
-  if (line.trim().startsWith('//')) {
-    return `<span class="syn-comment">${escapeHtml(line)}</span>`
-  }
-
-  let escaped = escapeHtml(line)
-  // Double quoted strings
-  escaped = escaped.replace(/("[^"]*")/g, '<span class="syn-string">$1</span>')
-  // Keywords
-  escaped = escaped.replace(/\b(class|reconstruct|extends|child|bind)\b/g, '<span class="syn-keyword">$1</span>')
-  // Class / Component Names
-  escaped = escaped.replace(/\b(Ui[A-Za-z0-9]+|DocumentRow|GridItem|FileRow)\b/g, '<span class="syn-class">$1</span>')
-  // Operators
-  escaped = escaped.replace(/(-&gt;)/g, '<span class="syn-operator">$1</span>')
-  // Props key followed by colon (e.g. pageTitle:)
-  escaped = escaped.replace(/\b([a-zA-Z0-9_]+)(?=:)/g, '<span class="syn-prop">$1</span>')
-
-  return escaped
-}
-
-function colorizeJsonLine(line: string): string {
-  let escaped = escapeHtml(line)
-  // JSON Key: "key":
-  escaped = escaped.replace(/("[\w-]+")\s*:/g, '<span class="syn-prop">$1</span>:')
-  // String value: "value"
-  escaped = escaped.replace(/:\s*(".*?")/g, ': <span class="syn-string">$1</span>')
-  // Numbers
-  escaped = escaped.replace(/:\s*(\d+)/g, ': <span class="syn-cmd">$1</span>')
-  // Booleans
-  escaped = escaped.replace(/:\s*(true|false)/g, ': <span class="syn-keyword">$1</span>')
-
-  return escaped
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-}
+import { highlightCodeBlock } from '../../utils/codeHighlighter'
 
 function extractPropFromVnr(vnrText: string, propKey: string, defaultValue: string): string {
   const reg = new RegExp(`${propKey}:\\s*"([^"]+)"`, 'i')
@@ -65,8 +26,8 @@ function extractPropFromVnr(vnrText: string, propKey: string, defaultValue: stri
 const COMPONENT_DATA: Record<string, ComponentMeta> = {
   'ui-table-list-page': {
     name: 'UiTableListPage',
-    category: 'Componentes Dedicados',
-    description: 'Página de listagem tabular densa com barra de pesquisa integrada, paginação e ações dinâmicas.',
+    category: 'Dedicated Components',
+    description: 'Dense tabular listing page with integrated search bar, pagination, and dynamic actions.',
     initialVnr: `class DocumentRow {
   bind id:       "td:nth-child(1) | text";
   bind fileName: "td:nth-child(2) a | text";
@@ -75,16 +36,16 @@ const COMPONENT_DATA: Record<string, ComponentMeta> = {
 }
 
 reconstruct "#legacy-table" -> UiTableListPage {
-  pageTitle: "Central de Arquivos";
-  placeholder: "Filtrar documentos...";
+  pageTitle: "File Center";
+  placeholder: "Filter documents...";
 
   child tableRows extends DocumentRow {
     selector: "tbody tr";
   }
 }`,
     parseVnrToProps: (vnr) => ({
-      pageTitle: extractPropFromVnr(vnr, 'pageTitle', 'Central de Arquivos'),
-      placeholder: extractPropFromVnr(vnr, 'placeholder', 'Filtrar documentos...')
+      pageTitle: extractPropFromVnr(vnr, 'pageTitle', 'File Center'),
+      placeholder: extractPropFromVnr(vnr, 'placeholder', 'Filter documents...')
     }),
     generateManifestJson: (props) => JSON.stringify({
       reconstructs: [
@@ -117,7 +78,7 @@ reconstruct "#legacy-table" -> UiTableListPage {
             <span className="spm-comp-tag">UiTableListPage</span>
             <h4 className="spm-comp-title">{props.pageTitle}</h4>
           </div>
-          <span className="spm-item-count">3 registros</span>
+          <span className="spm-item-count">3 records</span>
         </div>
 
         <div style={{ marginBottom: '1rem' }}>
@@ -136,24 +97,24 @@ reconstruct "#legacy-table" -> UiTableListPage {
         <div className="spm-ui-rows-list">
           <div className="spm-ui-row-item">
             <div className="spm-row-info">
-              <span className="spm-file-name">manual_usuario.pdf</span>
-              <span className="spm-file-meta">Documentação • #001</span>
+              <span className="spm-file-name">user_manual.pdf</span>
+              <span className="spm-file-meta">Documentation • #001</span>
             </div>
-            <span className="spm-action-btn">Baixar PDF →</span>
+            <span className="spm-action-btn">Download PDF →</span>
           </div>
           <div className="spm-ui-row-item">
             <div className="spm-row-info">
               <span className="spm-file-name">schema_banco.sql</span>
               <span className="spm-file-meta">Database • #002</span>
             </div>
-            <span className="spm-action-btn">Baixar SQL →</span>
+            <span className="spm-action-btn">Download SQL →</span>
           </div>
           <div className="spm-ui-row-item">
             <div className="spm-row-info">
-              <span className="spm-file-name">config_producao.json</span>
+              <span className="spm-file-name">production_config.json</span>
               <span className="spm-file-meta">Config • #003</span>
             </div>
-            <span className="spm-action-btn">Baixar JSON →</span>
+            <span className="spm-action-btn">Download JSON →</span>
           </div>
         </div>
       </div>
@@ -162,15 +123,15 @@ reconstruct "#legacy-table" -> UiTableListPage {
 
   'ui-search-bar': {
     name: 'UiSearchBar',
-    category: 'Componentes Dedicados',
-    description: 'Campo de pesquisa autônomo com preservação de inputs ocultos de segurança (CSRF token).',
+    category: 'Dedicated Components',
+    description: 'Standalone search field preserving hidden security inputs (CSRF token).',
     initialVnr: `reconstruct "#search-form" -> UiSearchBar {
-  placeholder: "Pesquisar na base...";
-  buttonText: "Buscar Agora";
+  placeholder: "Search database...";
+  buttonText: "Search Now";
 }`,
     parseVnrToProps: (vnr) => ({
-      placeholder: extractPropFromVnr(vnr, 'placeholder', 'Pesquisar na base...'),
-      buttonText: extractPropFromVnr(vnr, 'buttonText', 'Buscar Agora')
+      placeholder: extractPropFromVnr(vnr, 'placeholder', 'Search database...'),
+      buttonText: extractPropFromVnr(vnr, 'buttonText', 'Search Now')
     }),
     generateManifestJson: (props) => JSON.stringify({
       reconstructs: [
@@ -213,18 +174,18 @@ reconstruct "#legacy-table" -> UiTableListPage {
 
   'ui-stats-dashboard': {
     name: 'UiStatsDashboard',
-    category: 'Componentes Dedicados',
-    description: 'Painel compacto de métricas operacionais e estatísticas de runtime em grade.',
+    category: 'Dedicated Components',
+    description: 'Compact operational metrics and runtime statistics panel in grid.',
     initialVnr: `reconstruct "#stats-panel" -> UiStatsDashboard {
-  stat1Title: "Requisições/s";
+  stat1Title: "Requests/s";
   stat1Value: "14,250";
-  stat2Title: "Latência Média";
+  stat2Title: "Average Latency";
   stat2Value: "1.2ms";
 }`,
     parseVnrToProps: (vnr) => ({
-      stat1Title: extractPropFromVnr(vnr, 'stat1Title', 'Requisições/s'),
+      stat1Title: extractPropFromVnr(vnr, 'stat1Title', 'Requests/s'),
       stat1Value: extractPropFromVnr(vnr, 'stat1Value', '14,250'),
-      stat2Title: extractPropFromVnr(vnr, 'stat2Title', 'Latência Média'),
+      stat2Title: extractPropFromVnr(vnr, 'stat2Title', 'Average Latency'),
       stat2Value: extractPropFromVnr(vnr, 'stat2Value', '1.2ms')
     }),
     generateManifestJson: (props) => JSON.stringify({
@@ -246,12 +207,12 @@ reconstruct "#legacy-table" -> UiTableListPage {
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', borderRadius: '6px', padding: '1.25rem' }}>
           <span className="eyebrow">{props.stat1Title}</span>
           <h3 style={{ color: '#fff', fontSize: '24px', margin: '0.25rem 0 0', fontWeight: 800 }}>{props.stat1Value}</h3>
-          <span style={{ color: '#34d399', fontSize: '11px', fontFamily: 'var(--font-mono)' }}>+12.4% este mês</span>
+          <span style={{ color: '#34d399', fontSize: '11px', fontFamily: 'var(--font-mono)' }}>+12.4% this month</span>
         </div>
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', borderRadius: '6px', padding: '1.25rem' }}>
           <span className="eyebrow">{props.stat2Title}</span>
           <h3 style={{ color: '#fff', fontSize: '24px', margin: '0.25rem 0 0', fontWeight: 800 }}>{props.stat2Value}</h3>
-          <span style={{ color: '#60a5fa', fontSize: '11px', fontFamily: 'var(--font-mono)' }}>Otimizado via C++</span>
+          <span style={{ color: '#60a5fa', fontSize: '11px', fontFamily: 'var(--font-mono)' }}>Optimized via C++</span>
         </div>
       </div>
     )
@@ -259,15 +220,15 @@ reconstruct "#legacy-table" -> UiTableListPage {
 
   'ui-nav-header': {
     name: 'UiNavHeader',
-    category: 'Componentes Dedicados',
-    description: 'Barra de cabeçalho topo fixa com suporte a logo org, links primários e toggle de temas.',
+    category: 'Dedicated Components',
+    description: 'Fixed top header bar supporting org logo, primary links, and theme toggle.',
     initialVnr: `reconstruct "#header" -> UiNavHeader {
   siteName: "SPM Portal";
-  activeTab: "Início";
+  activeTab: "Home";
 }`,
     parseVnrToProps: (vnr) => ({
       siteName: extractPropFromVnr(vnr, 'siteName', 'SPM Portal'),
-      activeTab: extractPropFromVnr(vnr, 'activeTab', 'Início')
+      activeTab: extractPropFromVnr(vnr, 'activeTab', 'Home')
     }),
     generateManifestJson: (props) => JSON.stringify({
       reconstructs: [
@@ -290,7 +251,7 @@ reconstruct "#legacy-table" -> UiTableListPage {
         <div style={{ display: 'flex', gap: '1.25rem', fontSize: '13px', fontWeight: 600 }}>
           <span style={{ color: '#fff' }}>{props.activeTab}</span>
           <span style={{ color: 'var(--text-muted)' }}>Docs</span>
-          <span style={{ color: 'var(--text-muted)' }}>Componentes</span>
+          <span style={{ color: 'var(--text-muted)' }}>Components</span>
         </div>
       </div>
     )
@@ -299,8 +260,8 @@ reconstruct "#legacy-table" -> UiTableListPage {
 
 const getGenericComponentMeta = (name: string): ComponentMeta => ({
   name,
-  category: 'Componentes Dedicados',
-  description: `Componente React do ecossistema SPM para reconstrução de páginas modernas no Shadow DOM.`,
+  category: 'Dedicated Components',
+  description: `React component from the SPM ecosystem for modern page reconstruction inside Shadow DOM.`,
   initialVnr: `reconstruct "#container" -> ${name} {
   title: "${name} Demo";
   bind content: ".item | text";
@@ -331,7 +292,7 @@ const getGenericComponentMeta = (name: string): ComponentMeta => ({
         </span>
       </div>
       <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0 }}>
-        Visualização de demonstração reativa para <code style={{ color: '#fff' }}>{name}</code>.
+        Reactive demonstration view for <code style={{ color: '#fff' }}>{name}</code>.
       </p>
     </div>
   )
@@ -477,11 +438,7 @@ export default function ComponentDocPage() {
                   <div className="code-editor-wrapper">
                     {/* Syntax Highlighted Color Overlay underneath */}
                     <pre ref={preRef} className="code-editor-pre">
-                      <code>
-                        {vnrCode.split('\n').map((line, i) => (
-                          <div key={i} dangerouslySetInnerHTML={{ __html: colorizeVnrLine(line) || '&nbsp;' }} />
-                        ))}
-                      </code>
+                      <code dangerouslySetInnerHTML={{ __html: highlightCodeBlock(vnrCode) }} />
                     </pre>
 
                     {/* Transparent Editable Textarea overlay on top */}
@@ -496,9 +453,7 @@ export default function ComponentDocPage() {
                   </div>
                 ) : (
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.75, overflowX: 'auto', padding: '4px' }}>
-                    {compiledJson.split('\n').map((line, i) => (
-                      <div key={i} className="mono-terminal-line" dangerouslySetInnerHTML={{ __html: colorizeJsonLine(line) }} />
-                    ))}
+                    <pre><code dangerouslySetInnerHTML={{ __html: highlightCodeBlock(compiledJson) }} /></pre>
                   </div>
                 )}
               </div>

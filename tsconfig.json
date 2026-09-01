@@ -8,7 +8,8 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@spm/components/*": ["../extension/src/components/*"]
     },
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,

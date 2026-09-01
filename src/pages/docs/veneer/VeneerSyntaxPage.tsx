@@ -10,107 +10,107 @@ const SectionHeading = ({ children }: { children: string }) => (
 
 export default function VeneerSyntaxPage() {
   return (
-    <DocLayout title="Veneer Spec: Sintaxe & Gramática">
+    <DocLayout title="Veneer Spec: Syntax & Grammar">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        A sintaxe da Veneer Spec é limpa, estritamente estruturada por blocos delimitados por chaves <code className="vnr-op">{"{}"}</code> e instruída por ponto e vírgula <code className="vnr-op">;</code>.
+        Veneer Spec syntax is clean, strictly structured into blocks enclosed by curly braces <code className="vnr-op">{"{}"}</code>, and terminated by semicolons <code className="vnr-op">;</code>.
       </p>
 
-      <SectionHeading>Estrutura de Arquivos (.vnr)</SectionHeading>
+      <SectionHeading>File Structure (.vnr)</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Os arquivos fonte possuem a extensão <code className="vnr-str">.vnr</code> (ex: <code>theme/pages/dashboard.vnr</code>). O compilador <code className="vnr-cmd">spm-cli</code> pode ler arquivos individuais ou varrer pastas de temas recursivamente agregando e resolvendo dependências entre múltiplos arquivos <code className="vnr-str">.vnr</code>.
+        Source files use the <code className="vnr-str">.vnr</code> extension (e.g. <code>theme/pages/dashboard.vnr</code>). The <code className="vnr-cmd">spm-cli</code> compiler can read individual files or scan theme directories recursively, aggregating and resolving dependencies across multiple <code className="vnr-str">.vnr</code> files.
       </p>
 
-      <SectionHeading>Literais de String &amp; Raw Strings (r#"..."#)</SectionHeading>
+      <SectionHeading>String Literals &amp; Raw Strings (r#"..."#)</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        A Veneer Spec suporta dois formatos de literais de string:
+        Veneer Spec supports two string literal formats:
       </p>
 
       <ul style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.8, paddingLeft: '1.25rem', marginBottom: '1.5rem' }}>
-        <li><strong style={{ color: '#fff' }}>String Padrão:</strong> Delimitada por aspas duplas <code className="vnr-str">"texto"</code> com suporte a caracteres de escape normais como <code>\n</code> ou <code>\"</code>.</li>
-        <li><strong style={{ color: '#fff' }}>Raw String Literal:</strong> Delimitada por <code className="vnr-str">r#"..."#</code>. Ignora totalmente caracteres de escape. É ideal para seletores CSS complexos, expressões regulares e blocos de código CSS embutido.</li>
+        <li><strong style={{ color: '#fff' }}>Standard String:</strong> Enclosed in double quotes <code className="vnr-str">"text"</code> with support for normal escape characters like <code>\n</code> or <code>\"</code>.</li>
+        <li><strong style={{ color: '#fff' }}>Raw String Literal:</strong> Enclosed in <code className="vnr-str">r#"..."#</code>. Completely ignores escape characters. Ideal for complex CSS selectors, regular expressions, and embedded CSS code blocks.</li>
       </ul>
 
-      <CodeBlock>{`// String Padrão
-pageTitle: "Central de Relatórios \\n Produção";
+      <CodeBlock>{`// Standard String
+pageTitle: "Reports Center \\n Production";
 
-// Raw String (perfeita para seletores com aspas ou regex sem precisar escapar)
+// Raw String (ideal for selectors with quotes or regexes without escaping)
 bind userAvatar: r#"td.user-cell img[src*="avatar"] | attr:src"#;`}</CodeBlock>
 
-      <SectionHeading>Comentários</SectionHeading>
+      <SectionHeading>Comments</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        O compilador descarta comentários durante a fase de lexing antes de montar a AST.
+        The compiler discards comments during the lexing phase before building the AST.
       </p>
 
-      <CodeBlock>{`// Este é um comentário de linha única
+      <CodeBlock>{`// This is a single-line comment
 
 /*
-  Este é um comentário de múltiplas linhas.
-  Útil para documentar regras de temas extensos.
+  This is a multi-line comment.
+  Useful for documenting extensive theme rules.
 */`}</CodeBlock>
 
-      <SectionHeading>Tabela de Palavras-Chave Reservadas</SectionHeading>
+      <SectionHeading>Reserved Keywords Table</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        O lexer da Veneer Spec reconhece o seguinte conjunto de tokens e palavras-chave reservadas:
+        The Veneer Spec lexer recognizes the following set of tokens and reserved keywords:
       </p>
 
       <table className="prose-spm" style={{ width: '100%', marginBottom: '2.5rem' }}>
         <thead>
           <tr>
-            <th>PALAVRA-CHAVE</th>
-            <th>ESCOPO</th>
-            <th>DESCRIÇÃO / FINALIDADE</th>
+            <th>KEYWORD</th>
+            <th>SCOPE</th>
+            <th>DESCRIPTION / PURPOSE</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><code className="vnr-kw">theme</code></td>
-            <td>Raiz</td>
-            <td>Define o nome do tema, variáveis CSS e estilos globais.</td>
+            <td>Root</td>
+            <td>Defines the theme name, CSS variables, and global styles.</td>
           </tr>
           <tr>
             <td><code className="vnr-kw">class</code></td>
-            <td>Raiz</td>
-            <td>Declara uma classe blueprint de dados reutilizável.</td>
+            <td>Root</td>
+            <td>Declares a reusable data blueprint class.</td>
           </tr>
           <tr>
             <td><code className="vnr-kw">extends</code></td>
             <td>class / child</td>
-            <td>Aplica herança simples estendendo outra classe base.</td>
+            <td>Applies single inheritance extending another base class.</td>
           </tr>
           <tr>
             <td><code className="vnr-kw">selector</code></td>
-            <td>Raiz</td>
-            <td>Aplica ações diretas em seletores do DOM (ex: <code>action: hide;</code>).</td>
+            <td>Root</td>
+            <td>Applies direct actions on DOM selectors (e.g. <code>action: hide;</code>).</td>
           </tr>
           <tr>
             <td><code className="vnr-kw">reconstruct</code></td>
-            <td>Raiz</td>
-            <td>Mapeia um seletor container para montar um componente React.</td>
+            <td>Root</td>
+            <td>Maps a container selector to mount a React component.</td>
           </tr>
           <tr>
             <td><code className="vnr-kw">child</code></td>
             <td>reconstruct</td>
-            <td>Declara uma lista/vetor de elementos filhos extraídos do DOM.</td>
+            <td>Declares a list/array of child elements extracted from the DOM.</td>
           </tr>
           <tr>
             <td><code className="vnr-kw">bind</code></td>
             <td>class / reconstruct</td>
-            <td>Conecta uma propriedade a um seletor CSS e extrator de valor.</td>
+            <td>Binds a property to a CSS selector and value extractor.</td>
           </tr>
           <tr>
             <td><code className="vnr-kw">preserve</code></td>
             <td>reconstruct</td>
-            <td>Preserva inputs ocultos de formulário (ex: CSRF token).</td>
+            <td>Preserves hidden form inputs (e.g. CSRF tokens).</td>
           </tr>
         </tbody>
       </table>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid var(--border-contrast)' }}>
         <Link to="/docs/veneer/introduction" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-          ← Anterior: Visão Geral
+          ← Previous: Overview
         </Link>
         <Link to="/docs/veneer/theme" style={{ color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700 }}>
-          Próximo: Definição de Temas (theme) →
+          Next: Theme Definition (theme) →
         </Link>
       </div>
     </DocLayout>

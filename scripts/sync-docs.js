@@ -34,16 +34,22 @@ if (fs.existsSync(compBaseDocsDir)) {
   }
 }
 
-// 3. Copy detailed component specs from spm-components/docs/components
-const compDocsDir = path.join(root, '../spm-components/docs/components');
-if (fs.existsSync(compDocsDir)) {
-  const files = fs.readdirSync(compDocsDir);
-  let count = 0;
-  for (const file of files) {
-    if (file.endsWith('.md')) {
-      fs.copyFileSync(path.join(compDocsDir, file), path.join(docsTargetDir, file));
-      count++;
+// 3. Copy detailed component specs from spm-components/docs/components or extension/src/components/docs/components
+const compDocsDirs = [
+  path.join(root, '../spm-components/docs/components'),
+  path.join(root, '../extension/src/components/docs/components')
+];
+for (const compDocsDir of compDocsDirs) {
+  if (fs.existsSync(compDocsDir)) {
+    const files = fs.readdirSync(compDocsDir);
+    let count = 0;
+    for (const file of files) {
+      if (file.endsWith('.md')) {
+        fs.copyFileSync(path.join(compDocsDir, file), path.join(docsTargetDir, file));
+        count++;
+      }
     }
+    console.log(`[sync-docs] Copied ${count} component spec markdown files from ${compDocsDir}.`);
   }
-  console.log(`[sync-docs] Copied ${count} component spec markdown files.`);
 }
+

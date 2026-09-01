@@ -10,14 +10,14 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
 
 export default function VeneerThemePage() {
   return (
-    <DocLayout title="Veneer Spec: Definição de Temas (theme)">
+    <DocLayout title="Veneer Spec: Theme Definition (theme)">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        O bloco <code className="vnr-kw">theme</code> define a identidade visual do tema, mapeando variáveis CSS globais e customStyles aplicadas ao documento principal.
+        The <code className="vnr-kw">theme</code> block defines the visual identity of the theme, mapping global CSS variables and customStyles applied to the main document.
       </p>
 
-      <SectionHeading>Bloco theme "Nome" {"{ ... }"}</SectionHeading>
+      <SectionHeading>theme "Name" {"{ ... }"}</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Toda especificação de tema completa começa com a declaração do bloco <code className="vnr-kw">theme</code> informando o nome identificador do tema entre aspas:
+        Every complete theme specification starts with the declaration of the <code className="vnr-kw">theme</code> block specifying the theme identifier name in quotes:
       </p>
 
       <CodeBlock>{`theme "Obsidian" {
@@ -34,30 +34,30 @@ export default function VeneerThemePage() {
   }
 }`}</CodeBlock>
 
-      <SectionHeading>Mapeamento de Variáveis CSS (variables)</SectionHeading>
+      <SectionHeading>CSS Variable Mapping (variables)</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Dentro do bloco <code className="vnr-op">variables</code>, você declara tokens de design como propriedades CSS customizadas (CSS Variables).
+        Inside the <code className="vnr-op">variables</code> block, you declare design tokens as custom CSS properties (CSS Variables).
       </p>
       <ul style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.8, paddingLeft: '1.25rem', marginBottom: '1.5rem' }}>
-        <li>O compilador converte esse bloco em um objeto JSON sob a chave <code>theme.cssVariables</code>.</li>
-        <li>Em tempo de execução, a extensão SPM injeta essas variáveis diretamente na tag <code>html</code> do documento principal através da API <code>document.documentElement.style.setProperty</code>.</li>
+        <li>The compiler converts this block into a JSON object under the key <code>theme.cssVariables</code>.</li>
+        <li>At runtime, the SPM extension injects these variables directly onto the <code>html</code> tag of the main document via the <code>document.documentElement.style.setProperty</code> API.</li>
       </ul>
 
-      <SectionHeading>Injeção de CSS Global (customStyles)</SectionHeading>
+      <SectionHeading>Global CSS Injection (customStyles)</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        O bloco <code className="vnr-op">customStyles</code> aceita um conjunto de regras CSS brutas como strings.
+        The <code className="vnr-op">customStyles</code> block accepts a set of raw CSS rules as string literals.
       </p>
       <ul style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.8, paddingLeft: '1.25rem', marginBottom: '2rem' }}>
-        <li>Estas regras são injetadas globalmente na página hospedada através da tag <code>&lt;style id="spm-global-theme-styles"&gt;</code>.</li>
-        <li>Útil para ajustar margens da página original, ocultar banners antigos inconvenientes ou sobrescrever fontes.</li>
+        <li>These rules are injected globally into the host page via a <code>&lt;style id="spm-global-theme-styles"&gt;</code> tag.</li>
+        <li>Useful for adjusting margins of the original page, hiding legacy banners, or overriding fonts.</li>
       </ul>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid var(--border-contrast)' }}>
         <Link to="/docs/veneer/syntax" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-          ← Anterior: Sintaxe &amp; Gramática
+          ← Previous: Syntax &amp; Grammar
         </Link>
         <Link to="/docs/veneer/classes" style={{ color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700 }}>
-          Próximo: Classes &amp; Herança →
+          Next: Classes &amp; Inheritance →
         </Link>
       </div>
     </DocLayout>

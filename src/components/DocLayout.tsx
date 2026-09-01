@@ -6,54 +6,71 @@ import Footer from './Footer'
 import { useLanguage } from '../context/LanguageContext'
 
 interface NavItem {
-  labelKey: string
+  labelKey?: string
+  rawLabel?: string
   to: string
   children?: { label: string; to: string }[]
 }
 
 const docNav: NavItem[] = [
   { labelKey: 'nav_getting_started', to: '/docs/getting-started' },
-  { 
-    labelKey: 'nav_veneer', 
+  {
+    labelKey: 'nav_veneer',
     to: '/docs/veneer',
     children: [
-      { label: 'Visão Geral & Motivação', to: '/docs/veneer/introduction' },
-      { label: 'Sintaxe & Gramática', to: '/docs/veneer/syntax' },
-      { label: 'Definição de Temas', to: '/docs/veneer/theme' },
-      { label: 'Classes & Herança', to: '/docs/veneer/classes' },
-      { label: 'Reconstrução de Páginas', to: '/docs/veneer/reconstruct' },
-      { label: 'Bindings & Extratores', to: '/docs/veneer/bindings' },
-      { label: 'Seletores & Ações', to: '/docs/veneer/selectors' },
-      { label: 'Diagnósticos & CLI', to: '/docs/veneer/tooling' },
-    ]
+      { label: 'Overview & Motivation', to: '/docs/veneer/introduction' },
+      { label: 'Full Reference Manual (spm-cli)', to: '/docs/veneer/reference' },
+      { label: 'Syntax & Grammar', to: '/docs/veneer/syntax' },
+      { label: 'Theme Definition', to: '/docs/veneer/theme' },
+      { label: 'Classes & Inheritance', to: '/docs/veneer/classes' },
+      { label: 'Page Reconstruction', to: '/docs/veneer/reconstruct' },
+      { label: 'Bindings & Extractors', to: '/docs/veneer/bindings' },
+      { label: 'Selectors & Actions', to: '/docs/veneer/selectors' },
+      { label: 'Diagnostics & CLI', to: '/docs/veneer/tooling' },
+    ],
+  },
+  {
+    rawLabel: 'Architecture & Composition',
+    to: '/docs/architecture/composition',
+    children: [
+      { label: 'Composition & Matrix', to: '/docs/architecture/composition' },
+    ],
   },
   { labelKey: 'nav_manifest', to: '/docs/manifest' },
-  { labelKey: 'nav_tooling', to: '/docs/tooling' },
+  {
+    labelKey: 'nav_tooling',
+    to: '/docs/tooling',
+    children: [
+      { label: 'spm-cli Compiler', to: '/docs/tooling' },
+      { label: 'Veneer Coder (AI Agent)', to: '/docs/tooling/veneer-coder' },
+    ],
+  },
 ]
 
 interface DocLayoutProps {
   children: ReactNode
   title?: string
+  activeSlug?: string
 }
 
 export default function DocLayout({ children, title }: DocLayoutProps) {
   const loc = useLocation()
   const { t } = useLanguage()
-  
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--bg-absolute)' }}>
       <Navbar />
       <div style={{ display: 'flex', maxWidth: 1200, margin: '0 auto', width: '100%', flex: 1 }}>
         {/* Sidebar */}
         <aside style={{
-          width: 250, flexShrink: 0, paddingTop: '2.5rem',
+          width: 260, flexShrink: 0, paddingTop: '2.5rem',
           paddingRight: '1.5rem', position: 'sticky', top: 56,
           height: 'calc(100vh - 56px)', overflowY: 'auto',
           borderRight: '1px solid var(--border-contrast)',
         }}>
           <DocsSearch />
           <p className="eyebrow" style={{ marginBottom: '0.75rem', paddingLeft: '1rem' }}>{t('sidebar_title')}</p>
-          
+
           {docNav.map(n => {
             const isMainActive = loc.pathname === n.to || loc.pathname.startsWith(n.to + '/')
             const isExactActive = loc.pathname === n.to
@@ -74,7 +91,7 @@ export default function DocLayout({ children, title }: DocLayoutProps) {
                   onMouseEnter={e => { if (!isExactActive) { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'var(--bg-element)' } }}
                   onMouseLeave={e => { if (!isExactActive) { e.currentTarget.style.color = isMainActive ? '#fff' : 'var(--text-muted)'; e.currentTarget.style.background = 'transparent' } }}
                 >
-                  {t(n.labelKey)}
+                  {n.rawLabel ? n.rawLabel : t(n.labelKey || '')}
                 </Link>
 
                 {/* Render sub-items if parent is active or has children */}
@@ -110,7 +127,7 @@ export default function DocLayout({ children, title }: DocLayoutProps) {
         </aside>
 
         {/* Main Content Area */}
-        <main style={{ flex: 1, padding: '2.5rem 3rem', maxWidth: 780 }}>
+        <main style={{ flex: 1, padding: '2.5rem 3rem', maxWidth: 840 }}>
           {title && <h1 className="section-title" style={{ marginBottom: '0.75rem' }}>{title}</h1>}
           {children}
         </main>

@@ -15,6 +15,18 @@ export default defineConfig(({ mode }) => {
     build: {
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/') || id.includes('node_modules/react-router-dom/') || id.includes('node_modules/@remix-run/router/')) {
+              return 'vendor-react'
+            }
+            if (id.includes('node_modules/marked/')) {
+              return 'vendor-marked'
+            }
+          },
+        },
+      },
     },
     plugins: [
       react(),
@@ -27,6 +39,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
+        '@spm/components': path.resolve(__dirname, '../extension/src/components'),
       },
     },
     server: {

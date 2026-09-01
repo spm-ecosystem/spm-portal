@@ -10,14 +10,14 @@ const SectionHeading = ({ children }: { children: string }) => (
 
 export default function VeneerClassesPage() {
   return (
-    <DocLayout title="Veneer Spec: Classes & Herança (class / extends)">
+    <DocLayout title="Veneer Spec: Classes & Inheritance (class / extends)">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        As <code className="vnr-kw">class</code> no Veneer Spec servem como <strong>blueprints reutilizáveis de dados e seletores</strong>, permitindo estender e sobrescrever campos sem duplicação de código.
+        In Veneer Spec, <code className="vnr-kw">class</code> constructs serve as <strong>reusable data and selector blueprints</strong>, allowing fields to be extended and overridden without code duplication.
       </p>
 
-      <SectionHeading>Definição de Classes Reutilizáveis</SectionHeading>
+      <SectionHeading>Defining Reusable Classes</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Uma classe define um modelo de objeto contendo um conjunto de declarações de <code className="vnr-kw">bind</code> (mapeamento de seletores):
+        A class defines an object model containing a set of <code className="vnr-kw">bind</code> declarations (selector mappings):
       </p>
 
       <CodeBlock>{`class BaseMediaItem {
@@ -26,21 +26,21 @@ export default function VeneerClassesPage() {
   bind pageUrl:  "td:nth-child(2) a | attr:href";
 }`}</CodeBlock>
 
-      <SectionHeading>Herança Simples com extends</SectionHeading>
+      <SectionHeading>Single Inheritance with extends</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Com a palavra-chave <code className="vnr-kw">extends</code>, uma classe derivada herda todas as variáveis e bindings da classe pai, podendo adicionar novas propriedades ou sobrescrever bindings existentes:
+        Using the <code className="vnr-kw">extends</code> keyword, a derived class inherits all variables and bindings from its parent class, and can add new properties or override existing bindings:
       </p>
 
-      <CodeBlock>{`// Classe Derivada que herda id, title e pageUrl de BaseMediaItem
+      <CodeBlock>{`// Derived class inheriting id, title, and pageUrl from BaseMediaItem
 class DetailedFileRow extends BaseMediaItem {
   bind category: "td:nth-child(3) | text";
   bind fileSize: "td:nth-child(4) | text";
   bind downloadUrl: "td:nth-child(5) a | attr:href";
 }`}</CodeBlock>
 
-      <SectionHeading>Escopamento com scope: "selector"</SectionHeading>
+      <SectionHeading>Scoping with scope: "selector"</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        A propriedade opcional <code className="vnr-op">scope</code> dentro de uma classe restringe a busca de todos os seletores <code className="vnr-kw">bind</code> a um sub-container específico do DOM:
+        The optional <code className="vnr-op">scope</code> property inside a class restricts all <code className="vnr-kw">bind</code> selector searches to a specific sub-container in the DOM:
       </p>
 
       <CodeBlock>{`class UserProfileCard {
@@ -51,22 +51,22 @@ class DetailedFileRow extends BaseMediaItem {
   bind userRole:  "span.role-badge | text";
 }`}</CodeBlock>
 
-      <SectionHeading>Resolução pelo Compilador</SectionHeading>
+      <SectionHeading>Compiler Resolution</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '2rem' }}>
-        Durante a fase de <strong>Resolution</strong> no <code className="vnr-cmd">spm-cli</code>:
+        During the <strong>Resolution</strong> phase in <code className="vnr-cmd">spm-cli</code>:
       </p>
       <ul style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.8, paddingLeft: '1.25rem', marginBottom: '2.5rem' }}>
-        <li>O compilador constrói a árvore de herança de todas as classes.</li>
-        <li>Mescla os dicionários de bindings de baixo para cima (bottom-up), aplicando overrides.</li>
-        <li>Detecta e interrompe o build com erro fatal caso encontre herança circular (ex: <code>class A extends B</code> e <code>class B extends A</code>).</li>
+        <li>The compiler builds the inheritance tree of all classes.</li>
+        <li>It merges binding dictionaries bottom-up, applying overrides.</li>
+        <li>It detects and aborts the build with a fatal error if circular inheritance is found (e.g. <code>class A extends B</code> and <code>class B extends A</code>).</li>
       </ul>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid var(--border-contrast)' }}>
         <Link to="/docs/veneer/theme" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-          ← Anterior: Definição de Temas
+          ← Previous: Theme Definition
         </Link>
         <Link to="/docs/veneer/reconstruct" style={{ color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700 }}>
-          Próximo: Reconstrução (reconstruct) →
+          Next: Reconstruction (reconstruct) →
         </Link>
       </div>
     </DocLayout>

@@ -18,65 +18,65 @@ export default function Tooling() {
   return (
     <DocLayout title="CLI & Tooling">
       <p className="body-copy" style={{ marginBottom: '2rem' }}>
-        Mapa das ferramentas que cercam o SPM. Esta página documenta o papel do <code>spm-cli</code>:
-        compilar Veneer Spec, observar temas em desenvolvimento e publicar artefatos.
+        Overview of tools surrounding SPM. This page documents the role of <code>spm-cli</code>:
+        compiling Veneer Spec, watching themes during development, and publishing artifacts.
       </p>
 
-      <SectionHeading>Contrato de compilação</SectionHeading>
+      <SectionHeading>Compilation Contract</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '1rem' }}>
-        O ponto central do tooling é transformar arquivos <code>.vnr</code> em um <code>manifest.json</code> único.
-        A extensão deve consumir esse manifesto sem depender dos detalhes internos do compilador.
+        The core purpose of the tooling is to transform <code>.vnr</code> files into a single <code>manifest.json</code>.
+        The extension consumes this manifest without relying on internal compiler details.
       </p>
 
-      <CodeBlock>{`# Compilar uma pasta de tema
+      <CodeBlock>{`# Compile a theme directory
 spm compile theme/ -o theme/manifest.json
 
-# Compilar um arquivo isolado
+# Compile an isolated file
 spm compile theme/pages/gallery.vnr -o /tmp/gallery.json`}</CodeBlock>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
         {[
-          { title: 'Lexing', desc: 'Remove comentários e transforma a Veneer Spec em tokens.' },
-          { title: 'Parsing', desc: 'Monta a AST com blocos theme, class, selector e reconstruct.' },
-          { title: 'Resolution', desc: 'Resolve extends, herança, overrides e classes compartilhadas.' },
-          { title: 'Emission', desc: 'Gera manifest.json e preserva metadados existentes quando possível.' },
+          { title: 'Lexing', desc: 'Strips comments and converts Veneer Spec into tokens.' },
+          { title: 'Parsing', desc: 'Builds the AST with theme, class, selector, and reconstruct blocks.' },
+          { title: 'Resolution', desc: 'Resolves extends, inheritance, overrides, and shared classes.' },
+          { title: 'Emission', desc: 'Generates manifest.json and preserves existing metadata where possible.' },
         ].map(item => (
           <FeatureCard key={item.title} title={item.title} desc={item.desc} />
         ))}
       </div>
 
-      <SectionHeading>Desenvolvimento local</SectionHeading>
+      <SectionHeading>Local Development</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '1rem' }}>
-        O modo de desenvolvimento deve observar mudanças no tema e notificar a extensão quando um manifesto novo
-        estiver pronto para aplicação na aba aberta.
+        Dev mode watches theme changes and notifies the extension when a new manifest
+        is ready to apply to the active tab.
       </p>
 
       <CodeBlock>{`spm dev -d /path/to/theme/
 
-# Saida esperada
+# Expected output
 # SPM Dev Server - ws://localhost:8080
 # Monitoring: /path/to/theme/
 # [Watcher] Syncing changes...`}</CodeBlock>
 
       <FeatureCard
-        title="Payload do watcher"
-        desc="O servidor recompila .vnr quando recebe um diretório ou arquivo, agrega CSS do tema e envia um JSON com manifest e css para a extensão."
+        title="Watcher Payload"
+        desc="The server recompiles .vnr upon receiving a directory or file, aggregates theme CSS, and sends a JSON payload with manifest and css to the extension."
       />
       <FeatureCard
-        title="Porta padrão"
-        desc="O dev server usa WebSocket em ws://localhost:8080. A extensão pode se conectar e pedir para observar um caminho específico."
+        title="Default Port"
+        desc="The dev server uses WebSocket at ws://localhost:8080. The extension can connect and request to watch a specific path."
       />
 
-      <SectionHeading>Diagnósticos de editor</SectionHeading>
+      <SectionHeading>Editor Diagnostics</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '1.5rem' }}>
-        Uma integração de editor deve reaproveitar as mesmas fases do compilador para devolver erros antes do build final.
+        Editor integrations reuse compiler phases to report errors before the final build.
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
         {[
-          { type: 'Léxico', desc: 'Caracteres inesperados, strings incompletas e tokens inválidos.' },
-          { type: 'Sintático', desc: 'Blocos mal formados, chaves ausentes e pipes incorretos.' },
-          { type: 'Semântico', desc: 'Componentes, classes ou props inexistentes no catálogo carregado.' },
-          { type: 'Autocomplete', desc: 'Sugestões de componentes, props, operadores de bind e escopos.' },
+          { type: 'Lexical', desc: 'Unexpected characters, unclosed strings, and invalid tokens.' },
+          { type: 'Syntactic', desc: 'Malformed blocks, missing braces, and incorrect pipes.' },
+          { type: 'Semantic', desc: 'Non-existent components, classes, or props in the loaded catalog.' },
+          { type: 'Autocomplete', desc: 'Suggestions for components, props, bind operators, and scopes.' },
         ].map(d => (
           <div key={d.type} style={{ border: '1px solid var(--border-contrast)', borderRadius: '4px', padding: '1rem', background: 'var(--bg-surface)' }}>
             <p className="eyebrow" style={{ marginBottom: 6 }}>{d.type}</p>
@@ -85,12 +85,12 @@ spm compile theme/pages/gallery.vnr -o /tmp/gallery.json`}</CodeBlock>
         ))}
       </div>
 
-      <SectionHeading>Publicação de temas</SectionHeading>
+      <SectionHeading>Theme Publishing</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '1rem' }}>
-        A publicação deve enviar artefatos compilados, não arquivos fonte soltos. O provedor de storage fica fora do contrato do portal.
+        Publishing uploads compiled artifacts, not loose source files. Storage provider details remain outside the portal contract.
       </p>
 
-      <CodeBlock>{`# Pipeline simplificado de publicação (GitHub Actions / CI/CD)
+      <CodeBlock>{`# Simplified publishing pipeline (GitHub Actions / CI/CD)
 on:
   push:
     branches: [main]
@@ -100,17 +100,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Compilar temas
+      - name: Compile themes
         run: spm compile themes/ -o dist/manifest.json
-      - name: Publicar artefatos
+      - name: Publish artifacts
         run: ./scripts/deploy-themes dist/`}</CodeBlock>
 
-      <SectionHeading>Comandos expostos</SectionHeading>
+      <SectionHeading>Exposed Commands</SectionHeading>
       <div style={{ marginBottom: '1rem' }}>
-        <FeatureCard title="spm install" desc="Instala o binário no PATH do sistema." />
-        <FeatureCard title="spm compile <source> -o <output>" desc="Compila arquivo .vnr ou diretório de tema para manifest.json." />
-        <FeatureCard title="spm dev -d <path>" desc="Inicia o servidor WebSocket de desenvolvimento observando um tema, arquivo .vnr ou manifesto." />
-        <FeatureCard title="spm publish" desc="Fluxo reservado para publicação de tema no registro do SPM." />
+        <FeatureCard title="spm install" desc="Installs binary to system PATH." />
+        <FeatureCard title="spm compile <source> -o <output>" desc="Compiles .vnr file or theme directory into manifest.json." />
+        <FeatureCard title="spm dev -d <path>" desc="Starts WebSocket dev server watching a theme, .vnr file, or manifest." />
+        <FeatureCard title="spm publish" desc="Reserved workflow for publishing theme to SPM registry." />
       </div>
     </DocLayout>
   )

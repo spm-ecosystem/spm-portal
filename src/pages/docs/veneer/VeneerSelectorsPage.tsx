@@ -10,14 +10,14 @@ const SectionHeading = ({ children }: { children: string }) => (
 
 export default function VeneerSelectorsPage() {
   return (
-    <DocLayout title="Veneer Spec: Seletores & Ações (selector)">
+    <DocLayout title="Veneer Spec: Selectors & Actions (selector)">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        O bloco <code className="vnr-kw">selector</code> permite aplicar manipulações diretas e limpas em elementos legados do DOM original sem montar componentes React.
+        The <code className="vnr-kw">selector</code> block allows clean, direct manipulations to legacy elements on the original DOM without mounting React components.
       </p>
 
-      <SectionHeading>Ocultando Elementos Legados (action: hide)</SectionHeading>
+      <SectionHeading>Hiding Legacy Elements (action: hide)</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        É comum querer remover menus legados quebrados, rodapés antigos ou anúncios da página sem desmontar a estrutura:
+        It is common to want to remove broken legacy menus, outdated footers, or ads from the page without tearing down the structure:
       </p>
 
       <CodeBlock>{`selector "#old-sidebar" {
@@ -28,29 +28,29 @@ selector ".legacy-banner-ads" {
   action: hide;
 }`}</CodeBlock>
 
-      <SectionHeading>Diferença entre selector e reconstruct</SectionHeading>
+      <SectionHeading>Difference Between selector and reconstruct</SectionHeading>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2.5rem' }}>
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', padding: '1.25rem', borderRadius: '4px' }}>
           <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '15px' }}><code className="vnr-kw">selector</code></h4>
           <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0, lineHeight: 1.6 }}>
-            Apenas esconde (<code>display: none</code>) ou modifica nós existentes no DOM original. Leve e rápido.
+            Only hides (<code>display: none</code>) or modifies existing nodes in the original DOM. Lightweight and fast.
           </p>
         </div>
 
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', padding: '1.25rem', borderRadius: '4px' }}>
           <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '15px' }}><code className="vnr-kw">reconstruct</code></h4>
           <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0, lineHeight: 1.6 }}>
-            Raspa os dados do nó, esconde o elemento original e monta um novo componente React dentro de um Shadow DOM isolado.
+            Scrapes node data, hides the original element, and mounts a new React component inside an isolated Shadow DOM.
           </p>
         </div>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid var(--border-contrast)' }}>
         <Link to="/docs/veneer/bindings" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-          ← Anterior: Bindings &amp; Extratores
+          ← Previous: Bindings &amp; Extractors
         </Link>
         <Link to="/docs/veneer/tooling" style={{ color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700 }}>
-          Próximo: Diagnósticos &amp; CLI →
+          Next: Diagnostics &amp; CLI →
         </Link>
       </div>
     </DocLayout>

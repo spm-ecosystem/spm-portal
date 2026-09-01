@@ -10,54 +10,54 @@ const SectionHeading = ({ children }: { children: string }) => (
 
 export default function VeneerReconstructPage() {
   return (
-    <DocLayout title="Veneer Spec: Reconstrução (reconstruct)">
+    <DocLayout title="Veneer Spec: Reconstruction (reconstruct)">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        O bloco <code className="vnr-kw">reconstruct</code> é o coração da modernização no SPM. Ele intercepta seletores do DOM antigo e os substitui montando componentes React isolados em Shadow DOM.
+        The <code className="vnr-kw">reconstruct</code> block is the heart of modernization in SPM. It intercepts legacy DOM selectors and replaces them by mounting isolated React components in Shadow DOM.
       </p>
 
-      <SectionHeading>Injeção em Shadow DOM com reconstruct</SectionHeading>
+      <SectionHeading>Shadow DOM Injection with reconstruct</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        A sintaxe conecta um seletor container a um componente React alvo usando o operador <code className="vnr-op">-&gt;</code>:
+        The syntax connects a container selector to a target React component using the <code className="vnr-op">-&gt;</code> operator:
       </p>
 
       <CodeBlock>{`reconstruct "#legacy-content-wrapper" -> UiTableListPage {
-  pageTitle: "Central de Relatórios";
-  searchPlaceholder: "Pesquisar documentos...";
+  pageTitle: "Reports Center";
+  searchPlaceholder: "Search documents...";
 }`}</CodeBlock>
 
-      <SectionHeading>Atribuição de Props Diretas</SectionHeading>
+      <SectionHeading>Direct Prop Assignment</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Valores declarados diretamente no corpo do bloco <code className="vnr-kw">reconstruct</code> (como <code>pageTitle: "..."</code>) são passados como props estáticas para o componente React.
+        Values declared directly in the body of the <code className="vnr-kw">reconstruct</code> block (such as <code>pageTitle: "..."</code>) are passed as static props to the React component.
       </p>
 
-      <SectionHeading>Preservação de Form Inputs (preserve)</SectionHeading>
+      <SectionHeading>Form Input Preservation (preserve)</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Páginas legadas frequentemente dependem de elementos ocultos de segurança para submeter formulários POST (como <code>csrfmiddlewaretoken</code> ou <code>session_id</code>). O bloco <code className="vnr-kw">preserve</code> instrui a extensão a mover esses nós intactos para o novo DOM:
+        Legacy pages frequently rely on hidden security elements to submit POST forms (such as <code>csrfmiddlewaretoken</code> or <code>session_id</code>). The <code className="vnr-kw">preserve</code> block instructs the extension to move these intact nodes into the new DOM:
       </p>
 
       <CodeBlock>{`reconstruct "#search-form" -> UiSearchBar {
-  placeholder: "Pesquisar no sistema...";
+  placeholder: "Search system...";
   
-  // Preserva todos os inputs type="hidden" contidos no formulário original
+  // Preserve all hidden inputs contained in the original form
   preserve: "form | hiddenInputs";
 }`}</CodeBlock>
 
-      <SectionHeading>Condicionais por Media Query (media)</SectionHeading>
+      <SectionHeading>Media Query Conditionals (media)</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Você pode condicionar a reconstrução a resoluções de tela usando o parâmetro <code className="vnr-op">media</code>:
+        You can condition reconstruction on screen resolutions using the <code className="vnr-op">media</code> parameter:
       </p>
 
       <CodeBlock>{`reconstruct "#mobile-navigation" -> UiNavHeader {
   media: "(max-width: 768px)";
-  siteName: "Portal Mobile";
+  siteName: "Mobile Portal";
 }`}</CodeBlock>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid var(--border-contrast)' }}>
         <Link to="/docs/veneer/classes" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-          ← Anterior: Classes &amp; Herança
+          ← Previous: Classes &amp; Inheritance
         </Link>
         <Link to="/docs/veneer/bindings" style={{ color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700 }}>
-          Próximo: Bindings &amp; Extratores →
+          Next: Bindings &amp; Extractors →
         </Link>
       </div>
     </DocLayout>

@@ -10,56 +10,56 @@ const SectionHeading = ({ children }: { children: string }) => (
 
 export default function VeneerToolingPage() {
   return (
-    <DocLayout title="Veneer Spec: Diagnósticos & CLI (spm compile)">
+    <DocLayout title="Veneer Spec: Diagnostics & CLI (spm compile)">
       <p className="body-copy" style={{ marginBottom: '2rem', fontSize: '15px', lineHeight: '1.7', color: 'var(--text-muted)' }}>
-        O compilador <code className="vnr-cmd">spm-cli</code> compila especificações Veneer Spec em um contrato JSON otimizado emitindo diagnósticos e mensagens de erro estruturadas.
+        The <code className="vnr-cmd">spm-cli</code> compiler compiles Veneer Spec specifications into an optimized JSON contract, emitting diagnostics and structured error messages.
       </p>
 
-      <SectionHeading>Compilação com spm-cli</SectionHeading>
+      <SectionHeading>Compilation with spm-cli</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Você pode compilar um diretório completo de temas contendo múltiplos arquivos <code className="vnr-str">.vnr</code> ou compilar um arquivo isolado:
+        You can compile a complete theme directory containing multiple <code className="vnr-str">.vnr</code> files or compile an isolated file:
       </p>
 
-      <CodeBlock>{`# Compilar um diretório completo de tema
+      <CodeBlock>{`# Compile a complete theme directory
 spm compile theme/ -o theme/manifest.json
 
-# Compilar um arquivo isolado .vnr
+# Compile an isolated .vnr file
 spm compile theme/pages/dashboard.vnr -o /tmp/dashboard.json`}</CodeBlock>
 
-      <SectionHeading>Fases do Compilador C++17</SectionHeading>
+      <SectionHeading>C++17 Compiler Phases</SectionHeading>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', padding: '1.25rem', borderRadius: '4px' }}>
-          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>1. Lexer (Análise Léxica)</h4>
+          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>1. Lexer (Lexical Analysis)</h4>
           <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0, lineHeight: 1.5 }}>
-            Tokeniza caracteres em palavras-chave (<code className="vnr-kw">class</code>, <code className="vnr-kw">reconstruct</code>), identificadores, delimitadores e literais de string.
+            Tokenizes characters into keywords (<code className="vnr-kw">class</code>, <code className="vnr-kw">reconstruct</code>), identifiers, delimiters, and string literals.
           </p>
         </div>
 
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', padding: '1.25rem', borderRadius: '4px' }}>
-          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>2. Parser (Análise Sintática)</h4>
+          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>2. Parser (Syntactic Analysis)</h4>
           <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0, lineHeight: 1.5 }}>
-            Constrói a Árvores de Sintaxe Abstrata (AST) validando fechamento de chaves <code className="vnr-op">{"{}"}</code> e delimitadores <code className="vnr-op">;</code>.
+            Builds the Abstract Syntax Tree (AST) while validating brace closing <code className="vnr-op">{"{}"}</code> and semicolons <code className="vnr-op">;</code>.
           </p>
         </div>
 
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', padding: '1.25rem', borderRadius: '4px' }}>
-          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>3. Resolver (Resolução)</h4>
+          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>3. Resolver (Resolution)</h4>
           <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0, lineHeight: 1.5 }}>
-            Mescla a herança entre classes base e derivadas (<code className="vnr-kw">extends</code>) e verifica se há dependências circulares.
+            Merges inheritance between base and derived classes (<code className="vnr-kw">extends</code>) and verifies circular dependencies.
           </p>
         </div>
 
         <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-contrast)', padding: '1.25rem', borderRadius: '4px' }}>
-          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>4. Emitter (Emissão JSON)</h4>
+          <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '14px', fontFamily: 'var(--font-mono)' }}>4. Emitter (JSON Emission)</h4>
           <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0, lineHeight: 1.5 }}>
-            Emite o manifesto final compilado preservando metadados como <code>targetUrl</code> e <code>version</code>.
+            Emits the final compiled manifest preserving metadata such as <code>targetUrl</code> and <code>version</code>.
           </p>
         </div>
       </div>
 
-      <SectionHeading>Diagnósticos de Erros</SectionHeading>
+      <SectionHeading>Error Diagnostics</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 14, lineHeight: 1.7, marginBottom: '1rem' }}>
-        Se o compilador encontrar um caractere inesperado ou chave ausente, ele retorna um erro descritivo indicando a linha e o token com erro:
+        If the compiler encounters an unexpected character or missing brace, it returns a descriptive error indicating the line and token in error:
       </p>
 
       <CodeBlock>{`[Veneer Parser Error] SyntaxError at line 14:
@@ -68,10 +68,10 @@ spm compile theme/pages/dashboard.vnr -o /tmp/dashboard.json`}</CodeBlock>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.5rem', borderTop: '1px solid var(--border-contrast)' }}>
         <Link to="/docs/veneer/selectors" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-          ← Anterior: Seletores &amp; Ações
+          ← Previous: Selectors &amp; Actions
         </Link>
         <Link to="/docs/manifest" style={{ color: '#fff', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 700 }}>
-          Próximo: Manifest Schema Reference →
+          Next: Manifest Schema Reference →
         </Link>
       </div>
     </DocLayout>

@@ -8,11 +8,11 @@ const SectionHeading = ({ children }: { children: string }) => (
 )
 
 const Step = ({ n, title, children }: { n: number; title: string; children: React.ReactNode }) => (
-  <div style={{ display: 'grid', gridTemplateColumns: '32px 1fr', gap: '1rem', marginBottom: '2rem' }}>
+  <div style={{ display: 'grid', gridTemplateColumns: '28px 1fr', gap: '1rem', marginBottom: '2rem' }}>
     <div style={{
-      width: 28, height: 28, borderRadius: 999, border: '1px solid var(--border-focus)',
+      width: 24, height: 24, borderRadius: '50%', background: '#ffffff',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontFamily: 'var(--font-mono)', fontSize: 12, color: '#fff', fontWeight: 700,
+      fontFamily: 'var(--font-mono)', fontSize: 11, color: '#000000', fontWeight: 800, marginTop: 2,
     }}>{n}</div>
     <div>
       <h3 style={{ fontSize: 15, fontWeight: 700, color: '#fff', margin: '2px 0 0.75rem' }}>{title}</h3>
@@ -29,44 +29,50 @@ const BulletList = ({ items }: { items: string[] }) => (
 
 export default function GettingStarted() {
   return (
-    <DocLayout title="Primeiros passos">
+    <DocLayout title="Getting Started">
       <p className="body-copy" style={{ marginBottom: '2rem' }}>
-        SPM moderniza páginas legadas sem alterar o servidor original. O fluxo é declarativo:
-        o tema descreve seletores, o <code>spm-cli</code> compila um manifesto e a extensão monta componentes React isolados em Shadow DOM.
+        SPM modernizes legacy pages without modifying the original server. The workflow is declarative:
+        the theme describes selectors, <code>spm-cli</code> compiles a manifest, and the extension mounts isolated React components inside Shadow DOM.
       </p>
 
-      <SectionHeading>O que cada parte faz</SectionHeading>
+      <SectionHeading>What Each Part Does</SectionHeading>
       <BulletList items={[
-        'site-package-manager: extensão MV3 que carrega manifestos, aplica tema global, extrai dados do DOM e monta componentes.',
-        'spm-cli: compilador C++17 que transforma arquivos .vnr em manifest.json e serve hot-reload local via WebSocket.',
-        'spm-components: biblioteca React usada como destino dos blocos selector e reconstruct.',
-        'spm-websites: lugar natural para temas por domínio, CSS e manifestos compilados.',
-        'spm-vscode: camada de ergonomia para syntax highlight, lint e autocomplete da Veneer Spec.',
+        'site-package-manager: MV3 extension that loads manifests, applies global theme, extracts DOM data, and mounts components.',
+        'spm-cli: C++17 compiler that transforms .vnr files into manifest.json and serves local hot-reload via WebSocket.',
+        'spm-components: React component library used as the target for selector and reconstruct blocks.',
+        'spm-websites: natural home for per-domain themes, CSS, and compiled manifests.',
+        'spm-vscode: ergonomics layer providing syntax highlighting, linting, and autocomplete for Veneer Spec.',
       ]} />
 
-      <SectionHeading>Fluxo mental</SectionHeading>
-      <div style={{ display: 'grid', gap: 1, background: 'var(--border-contrast)', border: '1px solid var(--border-contrast)', borderRadius: 4, overflow: 'hidden', marginBottom: '2rem' }}>
+      <SectionHeading>Mental Model</SectionHeading>
+      <div style={{ display: 'grid', gap: 1, background: 'var(--border-contrast)', border: '1px solid var(--border-contrast)', borderRadius: 6, overflow: 'hidden', marginBottom: '2rem' }}>
         {[
-          ['1', 'Inspecionar o HTML legado', 'Identifique containers, listas, links, formulários e metadados que já existem na página.'],
-          ['2', 'Escrever .vnr', 'Declare o alvo, o componente React e como cada prop será extraída.'],
-          ['3', 'Compilar manifest.json', 'O spm-cli resolve classes, valida sintaxe e emite o JSON consumido pela extensão.'],
-          ['4', 'Carregar no navegador', 'A extensão busca ou recebe o manifesto, aplica CSS e renderiza os componentes.'],
-          ['5', 'Iterar com hot-reload', 'No modo dev, alterações no tema são recompiladas e enviadas para a extensão.'],
+          ['1', 'Inspect Legacy HTML', 'Identify containers, lists, links, forms, and metadata that already exist on the page.'],
+          ['2', 'Write .vnr', 'Declare the target, the React component, and how each prop will be extracted.'],
+          ['3', 'Compile manifest.json', 'spm-cli resolves classes, validates syntax, and emits the JSON consumed by the extension.'],
+          ['4', 'Load in Browser', 'The extension fetches or receives the manifest, applies CSS, and renders components.'],
+          ['5', 'Iterate with Hot-Reload', 'In dev mode, theme changes are recompiled and sent to the extension.'],
         ].map(([n, title, desc]) => (
-          <div key={n} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: '1rem', background: 'var(--bg-surface)', padding: '1rem' }}>
-            <code>{n}</code>
+          <div key={n} style={{ display: 'grid', gridTemplateColumns: '28px 1fr', gap: '1rem', background: 'var(--bg-surface)', padding: '1rem 1.25rem', alignItems: 'flex-start' }}>
+            <div style={{
+              width: 24, height: 24, borderRadius: '50%', background: '#ffffff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'var(--font-mono)', fontSize: 11, color: '#000000', fontWeight: 800, marginTop: 2,
+            }}>
+              {n}
+            </div>
             <div>
-              <p style={{ color: '#fff', fontWeight: 700, fontSize: 13, margin: '0 0 0.25rem' }}>{title}</p>
+              <p style={{ color: '#fff', fontWeight: 700, fontSize: 14, margin: '0 0 0.25rem' }}>{title}</p>
               <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.6, margin: 0 }}>{desc}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <SectionHeading>Rodar a extensão</SectionHeading>
-      <Step n={1} title="Instalar dependências e compilar">
+      <SectionHeading>Running the Extension</SectionHeading>
+      <Step n={1} title="Install Dependencies and Build">
         <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '0.75rem' }}>
-          Na raiz do repositório da extensão, gere a pasta <code>dist/</code>.
+          In the root of the extension repository, generate the <code>dist/</code> directory.
         </p>
         <CodeBlock>{`
 npm install
@@ -74,19 +80,19 @@ npm run build
         `}</CodeBlock>
       </Step>
 
-      <Step n={2} title="Carregar a extensão no Chrome">
+      <Step n={2} title="Load Extension in Chrome">
         <BulletList items={[
-          'Abra chrome://extensions.',
-          'Ative Developer Mode.',
-          'Clique em Load unpacked.',
-          'Selecione a pasta dist/ gerada pelo build.',
+          'Open chrome://extensions.',
+          'Enable Developer Mode.',
+          'Click Load unpacked.',
+          'Select the dist/ directory generated by the build.',
         ]} />
       </Step>
 
-      <Step n={3} title="Preparar um tema local">
+      <Step n={3} title="Prepare a Local Theme">
         <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '0.75rem' }}>
-          Um tema mínimo precisa de arquivos <code>.vnr</code>, CSS opcional e um manifesto compilado.
-          O CLI aceita diretórios e varre arquivos <code>.vnr</code> recursivamente.
+          A minimal theme requires <code>.vnr</code> files, optional CSS, and a compiled manifest.
+          The CLI accepts directories and scans <code>.vnr</code> files recursively.
         </p>
         <CodeBlock>{`
 theme/
@@ -99,35 +105,27 @@ theme/
         `}</CodeBlock>
       </Step>
 
-      <Step n={4} title="Compilar ou observar mudanças">
+      <Step n={4} title="Compile or Watch Changes">
         <CodeBlock>{`
-# compilar uma pasta de tema
+# compile a theme directory
 spm compile theme/ -o theme/manifest.json
 
-# iniciar servidor de desenvolvimento
+# start dev server
 spm dev -d theme/
         `}</CodeBlock>
       </Step>
 
       <SectionHeading>Anti-flickering</SectionHeading>
       <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.7, marginBottom: '1rem' }}>
-        A extensão evita mostrar a página antiga durante a reconstrução. O interceptor roda em <code>document_start</code>,
-        esconde temporariamente o corpo da página e libera a renderização com <code>revealPage()</code> quando o fluxo termina
-        ou quando a extensão decide abortar.
+        The extension prevents flashing the old page during reconstruction. The interceptor runs at <code>document_start</code>,
+        temporarily hides the page body, and reveals rendering via <code>revealPage()</code> when the flow completes or aborts.
       </p>
       <BulletList items={[
-        'O CSS anti-flicker entra antes do conteúdo legado piscar na tela.',
-        'O tema global aplica tokens CSS e customStyles no documento principal.',
-        'Os hosts React usam Shadow DOM para isolar estilos dos componentes.',
-        'Containers reconstruídos recebem marcação para evitar montagem duplicada.',
+        'Anti-flicker CSS kicks in before legacy content flashes on screen.',
+        'The global theme applies CSS tokens and customStyles to the main document.',
+        'React hosts use Shadow DOM to isolate component styles.',
+        'Reconstructed containers are flagged to prevent duplicate mounting.',
       ]} />
-
-      <SectionHeading>Abrir este portal</SectionHeading>
-      <CodeBlock>{`
-cd ImportMarkdownContent
-npm install
-npm run dev
-      `}</CodeBlock>
     </DocLayout>
   )
 }

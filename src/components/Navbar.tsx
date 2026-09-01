@@ -45,7 +45,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={toggleLang}
-          aria-label="Trocar idioma"
+          aria-label="Switch language"
           style={{
             display: 'inline-flex',
             alignItems: 'center',

@@ -74,7 +74,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 2: Repositórios */}
+          {/* Column 2: Repositories */}
           <div>
             <p className="eyebrow" style={{ color: '#fff', marginBottom: '1rem', fontWeight: 700 }}>
               {t('footer_col_repos')}
@@ -103,7 +103,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Especificação */}
+          {/* Column 3: Specification */}
           <div>
             <p className="eyebrow" style={{ color: '#fff', marginBottom: '1rem', fontWeight: 700 }}>
               {t('footer_col_spec')}
