@@ -129,7 +129,7 @@ export default function UiTablePage() {
           sortKey={sortKey}
           sortDirection={sortDirection}
           onSort={handleSort}
-          onRowClick={item => setSelectedRow(item)}
+          onRowClick={(item: any) => setSelectedRow(item)}
         />
 
         {selectedRow && (

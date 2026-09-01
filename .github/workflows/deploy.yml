@@ -15,6 +15,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Checkout spm-components repository
+      uses: actions/checkout@v4
+      with:
+        repository: spm-ecosystem/spm-components
+        path: ../extension/src/components
+
     - name: Setup Node.js Environment
       uses: actions/setup-node@v4
       with:

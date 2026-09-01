@@ -119,9 +119,9 @@ export default function UiCommentListPage() {
       if (!searchQuery) return true
       const query = searchQuery.toLowerCase()
       const inPostUser = t.postUser?.toLowerCase().includes(query)
-      const inTags = t.tags?.some((tag) => tag.label.toLowerCase().includes(query))
+      const inTags = t.tags?.some((tag: any) => tag.label?.toLowerCase().includes(query))
       const inComments = t.comments?.some(
-        (c) => c.author?.toLowerCase().includes(query) || c.body.toLowerCase().includes(query)
+        (c: any) => c.author?.toLowerCase().includes(query) || c.body?.toLowerCase().includes(query)
       )
       return inPostUser || inTags || inComments
     })

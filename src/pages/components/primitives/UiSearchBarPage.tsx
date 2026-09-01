@@ -63,7 +63,7 @@ export default function UiSearchBarPage() {
           <UiSearchBar
             placeholder="Search endpoints, packages, or telemetry logs..."
             queryParamName={queryParam}
-            onSearch={query => setLastQuery(query)}
+            onSearch={(query: string) => setLastQuery(query)}
           />
         </div>
 

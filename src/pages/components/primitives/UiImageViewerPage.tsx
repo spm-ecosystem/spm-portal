@@ -79,7 +79,7 @@ export default function UiImageViewerPage() {
           alt="Infrastructure Dashboard Architecture Diagram"
           fit={fit}
           enableZoom={enableZoom}
-          onFitChange={newFit => setFit(newFit)}
+          onFitChange={(newFit: any) => setFit(newFit)}
         />
       </div>
     </ComponentDemoLayout>
