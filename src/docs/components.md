@@ -69,10 +69,26 @@ For detailed specifications, Props API tables, design tokens, and `.vnr` (Veneer
 | `UiSplitLayout` | Dedicated | [`UiSplitLayout.md`](components/UiSplitLayout.md) | Two-column layout shell supporting image viewer/main HTML content and scroll panel sidebar. |
 | `UiCommentListPage` | Dedicated | [`UiCommentListPage.md`](components/UiCommentListPage.md) | Comment thread list with post thumbnails, speech bubble replies, and metadata. |
 | `UiDashboardPage` | Dedicated | [`UiDashboardPage.md`](components/UiDashboardPage.md) | Card panel dashboard layout for user account options, settings, and actions. |
+| `UiDevDiagnosticPanel` | Dedicated | [`UiDevDiagnosticPanel.md`](components/UiDevDiagnosticPanel.md) | Developer diagnostic overlay panel and Missing Selector auditing drawer. |
+| `UiFormContainer` | Dedicated | [`UiFormContainer.md`](components/UiFormContainer.md) | Modernized input forms, login card container, and search submissions. |
+| `UiHeroLanding` | Dedicated | [`UiHeroLanding.md`](components/UiHeroLanding.md) | Full viewport landing hero with logo, tagline, CTA button, search bar, and primary links. |
+| `UiImageCard` | Dedicated | [`UiImageCard.md`](components/UiImageCard.md) | Thumbnail image card with title caption, aspect ratio controls, link, and hover effects. |
+| `UiImageViewer` | Dedicated | [`UiImageViewer.md`](components/UiImageViewer.md) | Responsive image viewer with fit options (`contain`/`cover`), ultra-wide fallback, and zoom toggle. |
+| `UiModernGridPage` | Dedicated | [`UiModernGridPage.md`](components/UiModernGridPage.md) | Gallery grid page layout with optional tag sidebar slot and mobile column controls. |
+| `UiNavHeader` | Dedicated | [`UiNavHeader.md`](components/UiNavHeader.md) | Navigation header with logo, site title, primary/secondary links, and responsive layouts. |
+| `UiNestedTreeTable` | Dedicated | [`UiNestedTreeTable.md`](components/UiNestedTreeTable.md) | Hierarchical tree table with collapsible/expandable rows for structured data. |
+| `UiPaginationBar` | Dedicated | [`UiPaginationBar.md`](components/UiPaginationBar.md) | Page navigation links bar for paginated feeds with active page detection. |
+| `UiPostDetails` | Dedicated | [`UiPostDetails.md`](components/UiPostDetails.md) | Split layout for post/item detail pages with sidebar, tags, search bar, buttons, and image viewport. |
+| `UiScrollPanel` | Dedicated | [`UiScrollPanel.md`](components/UiScrollPanel.md) | Scrollable sidebar panel with search input, tag lists, buttons, and statistics HTML. |
+| `UiSearchBar` | Dedicated | [`UiSearchBar.md`](components/UiSearchBar.md) | Form search input with GET/POST form target, query binding, and hidden field forwarding. |
+| `UiSplitLayout` | Dedicated | [`UiSplitLayout.md`](components/UiSplitLayout.md) | Two-column layout shell supporting image viewer/main HTML content and scroll panel sidebar. |
 | `UiStatsDashboard` | Dedicated | [`UiStatsDashboard.md`](components/UiStatsDashboard.md) | Ranking metrics and analytics tables dashboard with date range badges. |
 | `UiTable` | Dedicated | [`UiTable.md`](components/UiTable.md) | Tabular grid layout with row click callbacks, custom cell renderers, and column configs. |
 | `UiTableListPage` | Dedicated | [`UiTableListPage.md`](components/UiTableListPage.md) | Search results table page inside a `UiTable` container with pagination and infinite scroll. |
-| `UiToastContainer` | Dedicated | [`UiToastContainer.md`](components/UiToastContainer.md) | Global toast notifications stack and modal confirm portal listener. |
+| `UiTabs` | Dedicated | [`UiTabs.md`](components/UiTabs.md) | Tabbed navigation and content switcher with underline/pill/boxed variants and URL state sync. |
+| `UiTagBadge` | Dedicated | [`UiTagBadge.md`](components/UiTagBadge.md) | Category/tag pill badge with item count and remove/add filter action links. |
+| `UiTerminalConsole` | Dedicated | [`UiTerminalConsole.md`](components/UiTerminalConsole.md) | Dark monospace live terminal log console with level filtering. |
+| `UiToast` | Dedicated | [`UiToastContainer.md`](components/UiToastContainer.md) | Global toast notifications stack and modal confirm portal listener. |
 
 ---
 
@@ -102,7 +118,7 @@ Dedicated components are complex, pre-styled views located in `src/components/de
 
 | Component | Purpose | Key Props |
 | --- | --- | --- |
-| `UiNavHeader` | Site navigation header | `siteName`, `logoUrl`, `logoHref`, `primaryLinks`, `secondaryLinks`, `layout` |
+| `UiNavHeader` | Site navigation header | `siteName`, `logoUrl`, `logoHref`, `primaryLinks`, `secondaryLinks`, `layout`, `sticky` |
 | `UiHeroLanding` | Full-viewport landing page hero | `siteName`, `logoUrl`, `logoHref`, `tagline`, `subtext`, `ctaLabel`, `ctaUrl`, `searchSubmitUrl`, `searchParamName`, `primaryLinks` |
 | `UiSearchBar` | Search input field | `placeholder`, `defaultValue`, `submitUrl`, `queryParamName` |
 | `UiImageCard` | Single image card with link | `imageUrl`, `linkUrl`, `title`, `id`, `width`, `aspectRatio`, `imageFit`, `showTitle` |
@@ -117,6 +133,10 @@ Dedicated components are complex, pre-styled views located in `src/components/de
 | `UiStatsDashboard` | Metric tables/rankings blocks dashboard | `pageTitle`, `dateRangeText`, `navLinks`, `sections`, `height` |
 | `UiTable` | Isolated tabular grid with row callback | `columns`, `data`, `onRowClick` |
 | `UiTableListPage` | Search results page layout inside a `UiTable` | `pageTitle`, `tableRows`, `columns`, `pageLinks`, `height`, `onLoadMore` |
+| `UiPostDetails` | Split view post/item detail page | `imageUrl`, `imageAlt`, `tags`, `tagGroups`, `statisticsHtml`, `buttons`, `showSearch`, `searchPlaceholder`, `searchSubmitUrl`, `searchParamName` |
+| `UiNestedTreeTable` | Hierarchical expandable tree table | `title`, `columns`, `data`, `expandedDepth` |
+| `UiTerminalConsole` | Monospace live terminal log viewer with level filtering | `title`, `logs`, `filterLevel`, `autoScroll`, `maxLines` |
+| `UiTabs` | Tabbed navigation and content panel switcher | `tabs`, `activeParamName`, `variant`, `orientation` |
 | `UiToastContainer` | Toast feedback overlays & confirmation portals | - |
 
 ---
@@ -212,6 +232,49 @@ Dedicated components are complex, pre-styled views located in `src/components/de
 | `searchSubmitUrl` | `string` | - | If set, renders a search bar |
 | `searchParamName` | `string` | `'q'` | Search param name |
 | `primaryLinks` | `{label, url}[]` | `[]` | Pill nav links below CTA |
+
+#### `UiPostDetails`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `imageUrl` | `string` | - | Image source URL |
+| `imageAlt` | `string` | `'Post image'` | Alt text description for image |
+| `tags` | `TagItem[]` | `[]` | Tags list (`name`, `count`, `type`, `url`, `addUrl`, `removeUrl`) |
+| `tagGroups` | `TagGroupConfig[]` | - | Optional tag group ordering configurations (`title`, `typeKey`) |
+| `statisticsHtml` | `string` | `''` | Raw HTML content rendered in sidebar statistics block |
+| `buttons` | `GenericButtonItem[]` | `[]` | Action buttons (`label`, `url`, `targetSelector`, `iconSvg`) |
+| `showSearch` | `boolean` | `true` | Show search bar in sidebar |
+| `searchPlaceholder` | `string` | `'Search…'` | Placeholder text for search bar |
+| `searchSubmitUrl` | `string` | `''` | Form action URL for search bar submission |
+| `searchParamName` | `string` | `'tags'` | Query parameter key for search bar |
+
+#### `UiNestedTreeTable`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `string` | - | Header title text for the tree table |
+| `columns` | `TreeColumn[]` | `[]` | Column definitions (`key`, `title`, `width`) |
+| `data` | `TreeNode[]` | `[]` | Hierarchical tree node dataset (`id`, `label`, `values`, `children`, `icon`) |
+| `expandedDepth` | `number` | `1` | Default expansion depth for tree nodes |
+
+#### `UiTerminalConsole`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `string` | `'Console Output'` | Header title text |
+| `logs` | `LogEntry[]` | `[]` | Array of log entries (`id`, `timestamp`, `level`, `message`) |
+| `filterLevel` | `'all' \| 'info' \| 'warn' \| 'error'` | `'all'` | Initial log level filter |
+| `autoScroll` | `boolean` | - | Auto-scroll to latest log entries |
+| `maxLines` | `number` | - | Maximum line count to retain |
+
+#### `UiTabs`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `tabs` | `UiTabItem[]` | `[]` | Tab items (`id`, `label`, `href`, `badge`, `contentHtml`, `active`, `disabled`) |
+| `activeParamName` | `string` | - | URL query parameter key to sync active tab selection |
+| `variant` | `'underline' \| 'pill' \| 'boxed'` | `'underline'` | Visual tab styling variant (`'underline'`, `'pill'`, `'boxed'`) |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout flow orientation (`'horizontal'`, `'vertical'`) |
 
 ---
 
